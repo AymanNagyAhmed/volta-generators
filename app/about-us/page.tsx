@@ -1,3 +1,5 @@
+"use client";
+
 import { title } from "@/components/primitives";
 
 export default function AboutPage() {
@@ -6,4 +8,4 @@ export default function AboutPage() {
       <h1 className={title()}>About</h1>
     </div>
   );
-}
+} 

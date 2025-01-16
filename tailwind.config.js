@@ -13,6 +13,12 @@ export default {
         sans: ["var(--font-sans)"],
         mono: ["var(--font-mono)"],
       },
+      colors: {
+        primary: {
+          200: '#bfdbfe',
+          900: '#1e3a8a',
+        }
+      }
     },
   },
   darkMode: "class",

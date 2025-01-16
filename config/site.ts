@@ -7,23 +7,16 @@ export const siteConfig = {
     {
       label: "Home",
       href: "/",
+    },  
+    {
+      label: "Products",
+      type: "dropdown",
+      component: "ProductsDropdown",
     },
     {
-      label: "Docs",
-      href: "/docs",
-    },
-    {
-      label: "Pricing",
-      href: "/pricing",
-    },
-    {
-      label: "Blog",
-      href: "/blog",
-    },
-    {
-      label: "About",
-      href: "/about",
-    },
+      label: "About Us",
+      href: "/about-us",
+    }
   ],
   navMenuItems: [
     {
