@@ -31,6 +31,56 @@ export default {
           800: '#1e293b',
           900: '#0f172a',
           950: '#020617',
+        },
+        layout: {
+          navbar: {
+            bg: {
+              DEFAULT: 'rgba(255, 255, 255, 0.3)',
+              dark: 'rgba(15, 23, 42, 0.3)'
+            },
+            border: {
+              DEFAULT: 'rgba(226, 232, 240, 0.2)',
+              dark: 'rgba(51, 65, 85, 0.2)'
+            },
+            text: {
+              primary: {
+                DEFAULT: '#1e293b',
+                dark: '#f1f5f9'
+              },
+              secondary: {
+                DEFAULT: '#334155',
+                dark: '#cbd5e1'
+              },
+              hover: {
+                DEFAULT: '#2563eb',
+                dark: '#60a5fa'
+              }
+            }
+          },
+          footer: {
+            bg: {
+              DEFAULT: 'rgba(255, 255, 255, 0.9)',
+              dark: 'rgba(15, 23, 42, 0.9)'
+            },
+            border: {
+              DEFAULT: '#e2e8f0',
+              dark: '#334155'
+            },
+            text: {
+              primary: {
+                DEFAULT: '#475569',
+                dark: '#e2e8f0'
+              },
+              secondary: {
+                DEFAULT: '#64748b',
+                dark: '#94a3b8'
+              },
+              hover: {
+                DEFAULT: '#3b82f6',
+                dark: '#60a5fa'
+              }
+            }
+          }
         }
       },
       backgroundImage: {

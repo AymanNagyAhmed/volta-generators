@@ -54,36 +54,37 @@ export const Navbar = () => {
     <div className="w-full flex flex-col items-center">
       <div className="w-[90%] max-w-[1400px]">
         {/* Top Contact Bar */}
-        <div className="w-full bg-white/90 text-slate-600 py-2 rounded-b-lg px-4 hidden lg:block border-b border-slate-200 backdrop-blur-sm">
+        <div className="w-full bg-layout-navbar-bg dark:bg-layout-navbar-bg-dark text-layout-navbar-text-primary dark:text-layout-navbar-text-primary-dark py-2 rounded-b-lg px-4 hidden lg:block border-b border-layout-navbar-border dark:border-layout-navbar-border-dark backdrop-blur-[2px]">
           <div className="flex justify-center items-center max-w-[1024px] mx-auto">
             {/* Contact Items */}
             <div className="flex items-center space-x-4 flex-shrink-0">
               {/* Phone */}
               <div className="flex items-center space-x-2">
-                <Phone size={16} className="text-slate-500" />
-                <span className="text-sm text-slate-500">+1 234 567 890</span>
+                <Phone size={16} className="text-layout-navbar-text-secondary dark:text-layout-navbar-text-secondary-dark" />
+                <span className="text-sm text-layout-navbar-text-primary dark:text-layout-navbar-text-primary-dark">+1 234 567 890</span>
               </div>
               {/* Email */}
               <div className="flex items-center space-x-2">
-                <Mail size={16} className="text-slate-500" />
-                <span className="text-sm text-slate-500">contact@example.com</span>
+                <Mail size={16} className="text-layout-navbar-text-secondary dark:text-layout-navbar-text-secondary-dark" />
+                <span className="text-sm text-layout-navbar-text-primary dark:text-layout-navbar-text-primary-dark">contact@example.com</span>
               </div>
               {/* Address */}
               <div className="flex items-center space-x-2">
-                <MapPin size={16} className="text-slate-500" />
-                <span className="text-sm text-slate-500">123 Business Street, NY</span>
+                <MapPin size={16} className="text-layout-navbar-text-secondary dark:text-layout-navbar-text-secondary-dark" />
+                <span className="text-sm text-layout-navbar-text-primary dark:text-layout-navbar-text-primary-dark">123 Business Street, NY</span>
               </div>
             </div>
 
             {/* Social Links */}
             <div className="flex items-center gap-4 ml-4 flex-shrink-0">
-              <Link isExternal aria-label="Twitter" href={siteConfig.links.twitter} className="text-slate-500 hover:text-blue-500 transition-colors">
+              <Link isExternal aria-label="Twitter" href={siteConfig.links.twitter} 
+                className="text-layout-navbar-text-secondary dark:text-layout-navbar-text-secondary-dark hover:text-layout-navbar-text-hover dark:hover:text-layout-navbar-text-hover-dark transition-colors">
                 <TwitterIcon size={16} />
               </Link>
-              <Link isExternal aria-label="Discord" href={siteConfig.links.discord} className="text-slate-500 hover:text-blue-500 transition-colors">
+              <Link isExternal aria-label="Discord" href={siteConfig.links.discord} className="text-layout-navbar-text-secondary dark:text-layout-navbar-text-secondary-dark hover:text-layout-navbar-text-hover dark:hover:text-layout-navbar-text-hover-dark transition-colors">
                 <DiscordIcon size={16} />
               </Link>
-              <Link isExternal aria-label="Github" href={siteConfig.links.github} className="text-slate-500 hover:text-blue-500 transition-colors">
+              <Link isExternal aria-label="Github" href={siteConfig.links.github} className="text-layout-navbar-text-secondary dark:text-layout-navbar-text-secondary-dark hover:text-layout-navbar-text-hover dark:hover:text-layout-navbar-text-hover-dark transition-colors">
                 <GithubIcon size={16} />
               </Link>
               <ThemeSwitch />
@@ -96,14 +97,19 @@ export const Navbar = () => {
           maxWidth="sm"
           position="sticky"
           onMenuOpenChange={setIsMenuOpen}
-          className="bg-white/90 backdrop-blur-sm border-b border-slate-200"
+          className="bg-layout-navbar-bg dark:bg-layout-navbar-bg-dark backdrop-blur-sm border-b border-layout-navbar-border dark:border-layout-navbar-border-dark"
         >
           {/* Logo Section */}
           <NavbarContent className="basis-auto" justify="start">
             <NavbarBrand as="li" className="gap-3">
-              <NextLink className="flex justify-start items-center gap-1 text-slate-700" href="/">
-                <Logo />
-                <p className="font-bold text-inherit">ACME</p>
+              <NextLink className="flex justify-start items-center gap-1" href="/">
+                <div className="flex items-center">
+                  <img 
+                    src="/images/logo-new.png" 
+                    alt="Logo" 
+                    className="h-8 w-auto object-contain"
+                  />
+                </div>
               </NextLink>
             </NavbarBrand>
           </NavbarContent>

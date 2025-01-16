@@ -122,3 +122,48 @@ Use semantic color variants for different actions:
 Maintain consistent button sizing within the same section
 Use appropriate loading states for async actions
 Implement proper disabled states when actions are unavailable
+
+// General Rules
+- Always edit the Tailwind configuration first before modifying component styles
+- Use semantic color names and maintain a single source of truth in the config
+- Follow the pattern: define in tailwind.config.js -> use in components
+
+// Color System Rules
+- Define colors in tailwind.config.js under the 'colors' section
+- Group related colors under semantic names (e.g., layout.navbar.bg)
+- Include both light and dark variants for theme switching
+- Use rgba for colors that need transparency
+
+// Usage Pattern
+1. First: Add/modify colors in tailwind.config.js
+2. Then: Use these colors in components via Tailwind classes
+3. Finally: Test in both light and dark modes
+
+// Example Structure in tailwind.config.js:
+colors: {
+  layout: {
+    component: {
+      element: {
+        DEFAULT: 'value',
+        dark: 'value'
+      }
+    }
+  }
+}
+
+// Naming Convention
+- Use descriptive, semantic names
+- Follow the pattern: component-element-variant
+- Example: layout-navbar-bg-dark
+
+// Best Practices
+- Keep opacity values consistent across similar elements
+- Document color values with comments
+- Use CSS variables for dynamic values
+- Test contrast ratios for accessibility
+
+// Component Implementation
+- Always use the defined color variables from config
+- Add dark mode variants using 'dark:' prefix
+- Group related styles together
+- Use meaningful class names that match config structure
