@@ -33,11 +33,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body className="min-h-screen bg-background font-sans antialiased">
+      <body className="min-h-screen bg-gradient-pattern bg-cover bg-fixed bg-center bg-no-repeat w-screen overflow-x-hidden font-sans antialiased">
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <div className="relative flex flex-col h-screen">
+          <div className="relative flex flex-col min-h-screen w-full">
             <Navbar />
-            <main className="container mx-auto max-w-7xl flex-grow px-6 pt-16">
+            <main className="container mx-auto max-w-full md:max-w-7xl flex-grow px-0 md:px-6 pt-16">
               {children}
             </main>
             <Footer />

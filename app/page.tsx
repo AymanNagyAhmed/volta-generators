@@ -10,40 +10,37 @@ import { GithubIcon } from "@/components/icons";
 export default function Home() {
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      <div className="inline-block max-w-xl text-center justify-center">
-        <span className={title()}>Make&nbsp;</span>
-        <span className={title({ color: "violet" })}>beautiful&nbsp;</span>
-        <br />
-        <span className={title()}>
-          websites regardless of your design experience.
-        </span>
-        <div className={subtitle({ class: "mt-4" })}>
-          Beautiful, fast and modern React UI library.
+      {/* Hero Section */}
+      <div className="relative w-full h-[600px] -mt-16">
+        <div className="absolute inset-0 bg-hero-pattern bg-cover bg-center">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/50 to-blue-900/50">
+            <div className="container mx-auto h-full flex flex-col items-center justify-center text-white">
+              {/* Centered Content */}
+              <div className="text-center space-y-8">
+                <h1 className="text-4xl md:text-6xl font-bold">
+                  YOUR GLOBAL POWER SOLUTION PARTNER
+                </h1>
+                
+                {/* Get a Free Quote Button */}
+                <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full">
+                  GET A FREE QUOTE
+                </button>
+              </div>
+              
+              {/* Generator Image */}
+              <div className="mt-8">
+                <img 
+                  src="/generator.png" 
+                  alt="Generator" 
+                  className="max-w-2xl mx-auto"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="flex gap-3">
-        <Link
-          isExternal
-          className={buttonStyles({
-            color: "primary",
-            radius: "full",
-            variant: "shadow",
-          })}
-          href={siteConfig.links.docs}
-        >
-          Documentation
-        </Link>
-        <Link
-          isExternal
-          className={buttonStyles({ variant: "bordered", radius: "full" })}
-          href={siteConfig.links.github}
-        >
-          <GithubIcon size={20} />
-          GitHub
-        </Link>
-      </div>
-
+      {/* Rest of your content */}
       <div className="mt-8">
         <Snippet hideCopyButton hideSymbol variant="bordered">
           <span>
