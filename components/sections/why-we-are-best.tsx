@@ -34,7 +34,7 @@ const features = [
 
 export function WhyWeAreBest() {
   return (
-    <div className="w-full bg-white dark:bg-gray-950 py-16">
+    <section className="w-full py-16 bg-white dark:bg-gray-950">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-4xl font-bold text-center mb-12 text-brand-text-light-primary dark:text-brand-text-dark-primary">
           WHY WE ARE THE BEST
@@ -61,6 +61,6 @@ export function WhyWeAreBest() {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 } 

@@ -14,6 +14,7 @@ import { TechnicalSupport } from "@/components/sections/technical-support";
 import { WhyWeAreBest } from "@/components/sections/why-we-are-best";
 import { OurProducts } from "@/components/sections/our-products";
 import { GeographicalCoverage } from "@/components/sections/geographical-coverage";
+import { FAQ } from "@/components/sections/faq";
 
 export default function Home() {
   return (
@@ -41,6 +42,9 @@ export default function Home() {
 
       {/* Geographical Coverage Section */}
       <GeographicalCoverage />
+
+      {/* FAQ Section */}
+      <FAQ />
 
       {/* Rest of your content */}
       <div className="mt-8">
