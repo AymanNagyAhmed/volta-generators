@@ -7,12 +7,28 @@ import { siteConfig } from "@/config/site";
 import { title, subtitle } from "@/components/primitives";
 import { GithubIcon } from "@/components/icons";
 import { Hero } from "@/components/sections/hero";
+import { WhoWeAre } from "@/components/sections/who-we-are";
+import { CoreValues } from "@/components/sections/core-values";
+import { ImageShowcase } from "@/components/sections/image-showcase";
+import { TechnicalSupport } from "@/components/sections/technical-support";
 
 export default function Home() {
   return (
-    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+    <section className="flex flex-col items-center justify-center gap-4">
       {/* Hero Section */}
       <Hero />
+
+      {/* Who We Are Section */}
+      <WhoWeAre />
+
+      {/* Core Values Section */}
+      <CoreValues />
+
+      {/* Image Showcase Section */}
+      <ImageShowcase />
+
+      {/* Technical Support Section */}
+      <TechnicalSupport />
 
       {/* Rest of your content */}
       <div className="mt-8">

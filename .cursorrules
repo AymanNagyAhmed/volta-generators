@@ -167,3 +167,120 @@ colors: {
 - Add dark mode variants using 'dark:' prefix
 - Group related styles together
 - Use meaningful class names that match config structure
+
+// Motion Primitives Integration Rules
+// Reference: https://motion-primitives.com/docs/
+
+// Component Creation Guidelines
+When creating new components:
+- Import motion components from framer-motion
+- Use AnimatePresence for component transitions
+- Follow the Motion Primitives component structure
+- Implement proper TypeScript types
+- Add dark mode support with dark: classes
+
+// Available Motion Primitive Components
+Core Components:
+- Accordion
+- Animated Background
+- Animated Group
+- Animated Number
+- Border Trail
+- Carousel
+- Cursor
+- Dialog
+- Disclosure
+- In View
+- Infinite Slider
+- Transition Panel
+
+Text Components:
+- Text Effect
+- Text Loop
+- Text Morph
+- Text Roll
+- Text Scramble
+- Text Shimmer
+- Text Shimmer Wave
+
+Extra Components:
+- Dock
+- Glow Effect
+- Image Comparison
+- Toolbar Dynamic
+- Toolbar Expandable
+- Popover
+- Scroll Progress
+- Spotlight
+- Spinning Text
+- Tilt
+- Magnetic
+- Morphing Dialog
+
+// Component Structure Pattern
+1. Use "use client" directive
+2. Import necessary motion components
+3. Define proper TypeScript interfaces
+4. Implement responsive design
+5. Add dark mode support
+6. Include proper animation transitions
+7. Use proper event handlers
+8. Implement accessibility features
+
+// Animation Guidelines
+- Use smooth transitions (0.3s - 0.6s duration)
+- Implement proper exit animations
+- Use AnimatePresence for mount/unmount
+- Add hover animations where appropriate
+- Consider reduced motion preferences
+
+// Styling Guidelines
+- Use Tailwind CSS for styling
+- Maintain consistent spacing
+- Follow color scheme from design system
+- Implement proper responsive breakpoints
+- Use proper shadow utilities
+
+// Best Practices
+- Keep animations subtle and purposeful
+- Ensure proper performance optimization
+- Implement proper error boundaries
+- Add loading states where needed
+- Consider accessibility implications
+
+// Framer Motion TypeScript Solutions
+// When encountering TypeScript errors with motion components:
+
+// Method 1: Type Assertion
+- Create a typed motion component at the top of your file:
+  const MotionDiv = motion.div as any;
+
+// Usage example:
+- Replace motion.div with MotionDiv in your components
+- This resolves className and other HTML attribute type errors
+- Example:
+  ```typescript
+  const MotionDiv = motion.div as any;
+  
+  export function Component() {
+    return (
+      <MotionDiv
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="your-classes"
+      >
+        content
+      </MotionDiv>
+    );
+  }
+  ```
+
+// Note: While using 'as any' is not ideal for type safety,
+// it's a pragmatic solution for Framer Motion type issues
+// until a better typing solution is available
+
+// Framer Motion TypeScript Fix
+- When using motion components with TypeScript errors:
+  const MotionDiv = motion.div as any;
+- Usage: Replace motion.div with MotionDiv to resolve className type errors
+- Note: This is a temporary solution until better typing is available
