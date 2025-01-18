@@ -11,6 +11,7 @@ import { WhoWeAre } from "@/components/sections/who-we-are";
 import { CoreValues } from "@/components/sections/core-values";
 import { ImageShowcase } from "@/components/sections/image-showcase";
 import { TechnicalSupport } from "@/components/sections/technical-support";
+import { WhyWeAreBest } from "@/components/sections/why-we-are-best";
 
 export default function Home() {
   return (
@@ -29,6 +30,9 @@ export default function Home() {
 
       {/* Technical Support Section */}
       <TechnicalSupport />
+
+      {/* Why We Are The Best Section */}
+      <WhyWeAreBest />
 
       {/* Rest of your content */}
       <div className="mt-8">

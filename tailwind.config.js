@@ -81,6 +81,9 @@ export default {
               }
             }
           }
+        },
+        navy: {
+          900: '#002B5B'
         }
       },
       backgroundImage: {
