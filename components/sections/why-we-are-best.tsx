@@ -34,27 +34,32 @@ const features = [
 
 export function WhyWeAreBest() {
   return (
-    <div className="w-full max-w-7xl mx-auto px-6 py-16">
-      <h2 className="text-4xl font-bold text-center mb-12">WHY WE ARE THE BEST</h2>
-      
-      <div className="flex flex-col gap-6">
-        {features.map((feature, index) => (
-          <MotionDiv
-            key={index}
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="flex items-center gap-6"
-          >
-            <div className="flex-shrink-0 w-12 h-12 rounded-full border-2 border-amber-400 flex items-center justify-center text-xl font-semibold">
-              {feature.number}
-            </div>
-            <div className="flex-1 bg-navy-900 rounded-full p-4 text-white">
-              <h3 className="text-xl font-semibold">{feature.title}</h3>
-              <p className="text-sm opacity-90">{feature.description}</p>
-            </div>
-          </MotionDiv>
-        ))}
+    <div className="w-full bg-white dark:bg-gray-950 py-16">
+      <div className="max-w-7xl mx-auto px-6">
+        <h2 className="text-4xl font-bold text-center mb-12 text-brand-text-light-primary dark:text-brand-text-dark-primary">
+          WHY WE ARE THE BEST
+          <div className="h-1 w-24 bg-brand-secondary mt-2 mx-auto"></div>
+        </h2>
+        
+        <div className="flex flex-col gap-6">
+          {features.map((feature, index) => (
+            <MotionDiv
+              key={index}
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="flex items-center gap-6"
+            >
+              <div className="flex-shrink-0 w-12 h-12 rounded-full border-2 border-brand-secondary flex items-center justify-center text-xl font-semibold text-brand-text-light-primary dark:text-brand-text-dark-primary">
+                {feature.number}
+              </div>
+              <div className="flex-1 bg-brand-primary rounded-full p-4">
+                <h3 className="text-xl font-semibold text-white">{feature.title}</h3>
+                <p className="text-sm text-gray-100 opacity-90">{feature.description}</p>
+              </div>
+            </MotionDiv>
+          ))}
+        </div>
       </div>
     </div>
   );

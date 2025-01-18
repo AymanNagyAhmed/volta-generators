@@ -12,6 +12,7 @@ import { CoreValues } from "@/components/sections/core-values";
 import { ImageShowcase } from "@/components/sections/image-showcase";
 import { TechnicalSupport } from "@/components/sections/technical-support";
 import { WhyWeAreBest } from "@/components/sections/why-we-are-best";
+import { OurProducts } from "@/components/sections/our-products";
 
 export default function Home() {
   return (
@@ -33,6 +34,9 @@ export default function Home() {
 
       {/* Why We Are The Best Section */}
       <WhyWeAreBest />
+
+      {/* Our Products Section */}
+      <OurProducts />
 
       {/* Rest of your content */}
       <div className="mt-8">

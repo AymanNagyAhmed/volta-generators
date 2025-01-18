@@ -84,6 +84,36 @@ export default {
         },
         navy: {
           900: '#002B5B'
+        },
+        brand: {
+          primary: {
+            DEFAULT: '#1e40af',
+            hover: '#1d4ed8',
+          },
+          secondary: {
+            DEFAULT: '#facc15',
+            hover: '#fbbf24',
+          },
+          surface: {
+            light: {
+              DEFAULT: '#f9fafb',
+              hover: '#f3f4f6',
+            },
+            dark: {
+              DEFAULT: '#111827',
+              hover: '#1f2937',
+            }
+          },
+          text: {
+            light: {
+              primary: '#1e3a8a',
+              secondary: '#374151',
+            },
+            dark: {
+              primary: '#ffffff',
+              secondary: '#d1d5db',
+            }
+          }
         }
       },
       backgroundImage: {
