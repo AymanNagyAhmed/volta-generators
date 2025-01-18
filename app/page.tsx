@@ -30,7 +30,7 @@ export default function Home() {
               {/* Generator Image */}
               <div className="mt-8">
                 <img 
-                  src="/generator.png" 
+                  src="/images/generator.jpg" 
                   alt="Generator" 
                   className="max-w-2xl mx-auto"
                 />
