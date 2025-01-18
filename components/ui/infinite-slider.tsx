@@ -1,104 +1,107 @@
-"use client";
+'use client';
+import { cn } from '@/lib/utils';
+import { useMotionValue, animate, motion } from 'motion/react';
+import { useState, useEffect } from 'react';
+import useMeasure from 'react-use-measure';
 
-import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
-import { useEffect, useRef } from "react";
-
-interface InfiniteSliderProps {
+export type InfiniteSliderProps = {
   children: React.ReactNode;
+  gap?: number;
   duration?: number;
   durationOnHover?: number;
+  direction?: 'horizontal' | 'vertical';
+  reverse?: boolean;
   className?: string;
-}
+};
 
 export function InfiniteSlider({
   children,
-  duration = 20,
-  durationOnHover = 60,
+  gap = 16,
+  duration = 25,
+  durationOnHover,
+  direction = 'horizontal',
+  reverse = false,
   className,
 }: InfiniteSliderProps) {
-  const sliderRef = useRef<HTMLDivElement>(null);
-  const scrollerRef = useRef<HTMLDivElement>(null);
+  const [currentDuration, setCurrentDuration] = useState(duration);
+  const [ref, { width, height }] = useMeasure();
+  const translation = useMotionValue(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [key, setKey] = useState(0);
 
   useEffect(() => {
-    if (!sliderRef.current || !scrollerRef.current) return;
+    let controls;
+    const size = direction === 'horizontal' ? width : height;
+    const contentSize = size + gap;
+    const from = reverse ? -contentSize / 2 : 0;
+    const to = reverse ? 0 : -contentSize / 2;
 
-    const slider = sliderRef.current;
-    const scroller = scrollerRef.current;
+    if (isTransitioning) {
+      controls = animate(translation, [translation.get(), to], {
+        ease: 'linear',
+        duration:
+          currentDuration * Math.abs((translation.get() - to) / contentSize),
+        onComplete: () => {
+          setIsTransitioning(false);
+          setKey((prevKey) => prevKey + 1);
+        },
+      });
+    } else {
+      controls = animate(translation, [from, to], {
+        ease: 'linear',
+        duration: currentDuration,
+        repeat: Infinity,
+        repeatType: 'loop',
+        repeatDelay: 0,
+        onRepeat: () => {
+          translation.set(from);
+        },
+      });
+    }
 
-    // Clone the content for seamless loop
-    const content = scroller.innerHTML;
-    scroller.innerHTML = content + content;
+    return controls?.stop;
+  }, [
+    key,
+    translation,
+    currentDuration,
+    width,
+    height,
+    gap,
+    isTransitioning,
+    direction,
+    reverse,
+  ]);
 
-    let animationFrame: number;
-    let isPaused = false;
-    let startX = 0;
-    let scrollLeft = 0;
-    let isMouseDown = false;
-
-    const scroll = () => {
-      if (!isPaused && scrollerRef.current) {
-        if (scrollerRef.current.scrollLeft >= scrollerRef.current.scrollWidth / 2) {
-          scrollerRef.current.scrollLeft = 0;
-        } else {
-          scrollerRef.current.scrollLeft += 1;
-        }
+  const hoverProps = durationOnHover
+    ? {
+        onHoverStart: () => {
+          setIsTransitioning(true);
+          setCurrentDuration(durationOnHover);
+        },
+        onHoverEnd: () => {
+          setIsTransitioning(true);
+          setCurrentDuration(duration);
+        },
       }
-      animationFrame = requestAnimationFrame(scroll);
-    };
-
-    const handleMouseEnter = () => {
-      isPaused = true;
-    };
-
-    const handleMouseLeave = () => {
-      isPaused = false;
-    };
-
-    const handleMouseDown = (e: MouseEvent) => {
-      isMouseDown = true;
-      startX = e.pageX - scroller.offsetLeft;
-      scrollLeft = scroller.scrollLeft;
-    };
-
-    const handleMouseUp = () => {
-      isMouseDown = false;
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isMouseDown) return;
-      e.preventDefault();
-      const x = e.pageX - scroller.offsetLeft;
-      const walk = (x - startX) * 2;
-      scroller.scrollLeft = scrollLeft - walk;
-    };
-
-    slider.addEventListener('mouseenter', handleMouseEnter);
-    slider.addEventListener('mouseleave', handleMouseLeave);
-    scroller.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
-    scroller.addEventListener('mousemove', handleMouseMove);
-
-    animationFrame = requestAnimationFrame(scroll);
-
-    return () => {
-      cancelAnimationFrame(animationFrame);
-      slider.removeEventListener('mouseenter', handleMouseEnter);
-      slider.removeEventListener('mouseleave', handleMouseLeave);
-      scroller.removeEventListener('mousedown', handleMouseDown);
-      window.removeEventListener('mouseup', handleMouseUp);
-      scroller.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
+    : {};
 
   return (
-    <div ref={sliderRef} className={cn("relative overflow-hidden", className)}>
-      <div
-        ref={scrollerRef}
-        className="flex whitespace-nowrap cursor-grab active:cursor-grabbing"
+    <div className={cn('overflow-hidden', className)}>
+      <motion.div
+        className='flex w-max'
+        style={{
+          ...(direction === 'horizontal'
+            ? { x: translation }
+            : { y: translation }),
+          gap: `${gap}px`,
+          flexDirection: direction === 'horizontal' ? 'row' : 'column',
+        }}
+        ref={ref}
+        {...hoverProps}
       >
         {children}
-      </div>
+        {children}
+      </motion.div>
     </div>
   );
-} 
+}

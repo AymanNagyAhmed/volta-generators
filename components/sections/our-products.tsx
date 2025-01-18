@@ -6,7 +6,7 @@ import {
   CarouselContent,
   CarouselNavigation,
   CarouselItem,
-} from '@/components/core/carousel-with-custom-size';
+} from '@/components/ui/carousel';
 
 const MotionDiv = motion.div as any;
 
