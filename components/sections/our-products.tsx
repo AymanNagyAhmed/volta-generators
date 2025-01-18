@@ -1,53 +1,86 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Carousel, CarouselContent, CarouselItem, CarouselNavigation } from "@/components/ui/carousel";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselNavigation,
+  CarouselItem,
+} from '@/components/core/carousel-with-custom-size';
 
 const MotionDiv = motion.div as any;
 
 const products = [
   {
+    id: 1,
     title: "Diesel Generators",
     description: "The leading generator brand in the MENA area",
     image: "/images/products/test-284x284.png",
     link: "/learn-more"
   },
   {
+    id: 2,
     title: "Maintenance",
     description: "Professional after sales support",
     image: "/images/products/test-284x284.png",
     link: "/learn-more"
   },
   {
+    id: 3,
     title: "Genuine Spare Parts & Accessories",
     description: "Meeting the requirements of business across the globe",
     image: "/images/products/test-284x284.png",
     link: "/learn-more"
   },
   {
+    id: 4,
     title: "ATS & Synchro Solutions",
     description: "High Performance digital controllers",
     image: "/images/products/test-284x284.png",
     link: "/learn-more"
   },
   {
+    id: 5,
     title: "Diesel Generators",
     description: "The leading generator brand in the MENA area",
     image: "/images/products/test-284x284.png",
     link: "/learn-more"
   },
   {
+    id: 6,
     title: "Diesel Generators",
     description: "The leading generator brand in the MENA area",
     image: "/images/products/test-284x284.png",
     link: "/learn-more"
   },
   {
+    id: 7,
     title: "Diesel Generators",
     description: "The leading generator brand in the MENA area",
     image: "/images/products/test-284x284.png",
     link: "/learn-more"
-  }
+  },
+  {
+    id: 8,
+    title: "Diesel Generators",
+    description: "The leading generator brand in the MENA area",
+    image: "/images/products/test-284x284.png",
+    link: "/learn-more"
+  },
+  {
+    id: 9,
+    title: "Diesel Generators",
+    description: "The leading generator brand in the MENA area",
+    image: "/images/products/test-284x284.png",
+    link: "/learn-more"
+  },
+  {
+    id: 10,
+    title: "Diesel Generators",
+    description: "The leading generator brand in the MENA area",
+    image: "/images/products/test-284x284.png",
+    link: "/learn-more"
+  },
 ];
 
 export function OurProducts() {
@@ -59,41 +92,40 @@ export function OurProducts() {
           <div className="h-1 w-24 bg-brand-secondary mt-2 mx-auto"></div>
         </h2>
         
-        <Carousel className="w-full">
-          <CarouselContent className="-ml-4">
-            {products.map((product, index) => (
-              <CarouselItem key={index} className="pl-4 basis-full md:basis-1/2 lg:basis-1/4">
-                <MotionDiv
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="flex flex-col items-center"
+        <div className="relative w-full max-w-6xl mx-auto px-12">
+          <Carousel>
+            <CarouselContent className="-ml-4">
+              {products.map((product) => (
+                <CarouselItem 
+                  key={product.id} 
+                  className="pl-4 basis-full sm:basis-1/2 lg:basis-1/4 flex"
                 >
-                  <div className="relative w-full aspect-square mb-4 overflow-hidden rounded-lg">
-                    <img 
-                      src={product.image} 
-                      alt={product.title}
-                      className="object-cover w-full h-full"
-                    />
+                  <div className="flex flex-col items-center p-4 border border-zinc-200 dark:border-zinc-800 rounded-lg bg-white dark:bg-gray-900 w-full">
+                    <div className="relative w-full aspect-square mb-4 overflow-hidden rounded-lg">
+                      <img 
+                        src={product.image} 
+                        alt={product.title}
+                        className="object-cover w-full h-full"
+                      />
+                    </div>
+                    <h3 className="text-xl font-semibold text-center mb-2 text-brand-text-light-primary dark:text-brand-text-dark-primary">
+                      {product.title}
+                    </h3>
+                    <p className="text-sm text-brand-text-light-secondary dark:text-brand-text-dark-secondary text-center mb-4">
+                      {product.description}
+                    </p>
+                    <a 
+                      href={product.link}
+                      className="inline-flex items-center text-brand-secondary hover:text-brand-secondary-hover transition-colors font-semibold"
+                    >
+                      LEARN MORE
+                    </a>
                   </div>
-                  <h3 className="text-xl font-semibold text-center mb-2 text-brand-text-light-primary dark:text-brand-text-dark-primary">
-                    {product.title}
-                  </h3>
-                  <p className="text-sm text-brand-text-light-secondary dark:text-brand-text-dark-secondary text-center mb-4">
-                    {product.description}
-                  </p>
-                  <a 
-                    href={product.link}
-                    className="inline-flex items-center text-brand-secondary hover:text-brand-secondary-hover transition-colors font-semibold"
-                  >
-                    LEARN MORE
-                  </a>
-                </MotionDiv>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselNavigation className="mt-4" />
-        </Carousel>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+        </div>
       </div>
     </div>
   );
