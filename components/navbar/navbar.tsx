@@ -72,6 +72,11 @@ export const Navbar = () => {
     />
   );
 
+  // Add this handler function
+  const handleLinkClick = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <div className="w-full flex flex-col items-center fixed top-0 z-50">
       <div className="w-full lg:w-[80%] max-w-[1400px]">
@@ -124,6 +129,8 @@ export const Navbar = () => {
 
         {/* Main Navigation Bar */}
         <NextUINavbar
+          isMenuOpen={isMenuOpen}
+          onMenuOpenChange={setIsMenuOpen}
           maxWidth="sm"
           isBlurred={true}
           className={`
@@ -185,13 +192,47 @@ export const Navbar = () => {
             <NavbarMenuToggle />
           </NavbarContent>
 
-          {/* Mobile Menu Dropdown */}
+          {/* Mobile Menu Dropdown - Updated */}
           <NavbarMenu>
             {/* Mobile Search */}
             {searchInput}
+            
             <div className="mx-4 mt-2 flex flex-col gap-2">
+              {/* Mobile Navigation Links - Updated with click handler */}
+              {siteConfig.navItems.map((item, index) => {
+                if (item.type === "dropdown" && item.component === "ProductsDropdown") {
+                  return (
+                    <NavbarMenuItem key={`${item.label}-${index}`}>
+                      <Link
+                        className="w-full text-lg"
+                        href="#"
+                        size="lg"
+                        onClick={handleLinkClick}
+                      >
+                        {item.label}
+                      </Link>
+                    </NavbarMenuItem>
+                  );
+                }
+                return (
+                  <NavbarMenuItem key={`${item.label}-${index}`}>
+                    <Link
+                      className="w-full text-lg"
+                      href={item.href || "#"}
+                      size="lg"
+                      onClick={handleLinkClick}
+                    >
+                      {item.label}
+                    </Link>
+                  </NavbarMenuItem>
+                );
+              })}
+
+              {/* Divider */}
+              <div className="mx-4 my-2 h-[1px] bg-gray-600/50" />
+
               {/* Mobile Contact Info */}
-              <div className="flex flex-col space-y-4 py-4 border-b">
+              <div className="flex flex-col space-y-4 py-4 border-b border-gray-600/50">
                 <div className="flex items-center space-x-2">
                   <Phone size={16} />
                   <span className="text-sm">+1 234 567 890</span>
@@ -205,24 +246,34 @@ export const Navbar = () => {
                   <span className="text-sm">123 Business Street, NY</span>
                 </div>
               </div>
-              {/* Mobile Navigation Items */}
-              {siteConfig.navMenuItems.map((item, index) => (
-                <NavbarMenuItem key={`${item}-${index}`}>
-                  <Link
-                    color={
-                      index === 2
-                        ? "primary"
-                        : index === siteConfig.navMenuItems.length - 1
-                          ? "danger"
-                          : "foreground"
-                    }
-                    href="#"
-                    size="lg"
-                  >
-                    {item.label}
-                  </Link>
-                </NavbarMenuItem>
-              ))}
+
+              {/* Social Links - Updated with click handler */}
+              <div className="flex justify-center gap-4 py-4">
+                <Link 
+                  isExternal 
+                  href={siteConfig.links.twitter} 
+                  className="text-gray-300 hover:text-white"
+                  onClick={handleLinkClick}
+                >
+                  <TwitterIcon size={20} />
+                </Link>
+                <Link 
+                  isExternal 
+                  href={siteConfig.links.discord}
+                  className="text-gray-300 hover:text-white"
+                  onClick={handleLinkClick}
+                >
+                  <DiscordIcon size={20} />
+                </Link>
+                <Link 
+                  isExternal 
+                  href={siteConfig.links.github}
+                  className="text-gray-300 hover:text-white"
+                  onClick={handleLinkClick}
+                >
+                  <GithubIcon size={20} />
+                </Link>
+              </div>
             </div>
           </NavbarMenu>
         </NextUINavbar>
