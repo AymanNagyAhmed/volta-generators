@@ -14,7 +14,7 @@ import { Input } from "@nextui-org/input";
 import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { siteConfig } from "@/config/site";
 import {
@@ -31,6 +31,29 @@ import { ProductsDropdown } from "@/components/navbar/products-dropdown";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showTopBar, setShowTopBar] = useState(true);
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > lastScrollY) {
+        setShowTopBar(false);
+      } else if (currentScrollY === 0) {
+        setShowTopBar(true);
+      }
+      
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   // Search Input Component
   const searchInput = (
@@ -50,10 +73,17 @@ export const Navbar = () => {
   );
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="w-full flex flex-col items-center fixed top-0 z-50">
       <div className="w-full lg:w-[80%] max-w-[1400px]">
-        {/* Top Contact Bar - Increased text and icon sizes */}
-        <div className="w-fit mx-auto text-corporate-blue-dark py-2 px-6 hidden lg:block bg-transparent backdrop-blur-sm rounded-lg">
+        {/* Top Contact Bar */}
+        <div 
+          className={`
+            w-fit mx-auto text-corporate-blue-dark py-2 px-6 
+            hidden lg:block bg-transparent backdrop-blur-sm rounded-lg
+            transition-all duration-300 ease-in-out
+            ${showTopBar ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full'}
+          `}
+        >
           <div className="flex justify-center items-center">
             {/* Contact Items - Updated text and icon sizes */}
             <div className="flex items-center space-x-6 flex-shrink-0">
@@ -95,9 +125,12 @@ export const Navbar = () => {
         {/* Main Navigation Bar */}
         <NextUINavbar
           maxWidth="sm"
-          position="sticky"
-          onMenuOpenChange={setIsMenuOpen}
-          className="bg-corporate-blue-transparent text-white backdrop-blur-sm border-b border-white/10"
+          isBlurred={true}
+          className={`
+            bg-corporate-blue-transparent text-white backdrop-blur-sm 
+            border-b border-white/10 transition-all duration-300
+            ${showTopBar ? '' : 'shadow-lg'}
+          `}
         >
           {/* Logo Section */}
           <NavbarContent className="basis-auto" justify="start">
