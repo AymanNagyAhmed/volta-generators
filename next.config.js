@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  // Remove any eslint-related configurations if they exist
+};
 
 module.exports = nextConfig;
