@@ -22,24 +22,27 @@ export const Hero = () => {
       <div className="absolute inset-0 bg-hero-pattern bg-cover bg-center">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/50 to-blue-900/50">
           <div className="container mx-auto h-full flex flex-col items-center justify-center text-white">
-            <div className="text-center space-y-8 w-full max-w-[1000px]">
-              <Carousel className="w-full">
-                <CarouselContent>
-                  {heroImages.map((item) => (
-                    <CarouselItem key={item.src}>
-                      <div className="relative aspect-[16/9] w-full">
-                        <Image 
-                          src={item.src} 
-                          alt={item.alt} 
-                          fill
-                          className="object-cover rounded-lg"
-                          priority
-                        />
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-              </Carousel>
+            <div className="w-full flex justify-center">
+              <div className="w-[60%] min-w-[300px]">
+                <Carousel>
+                  <CarouselContent>
+                    {heroImages.map((item) => (
+                      <CarouselItem key={item.src}>
+                        <div className="relative aspect-[16/9]">
+                          <Image 
+                            src={item.src} 
+                            alt={item.alt} 
+                            fill
+                            sizes="(max-width: 768px) 300px, (max-width: 1200px) 50vw, 60vw"
+                            className="object-cover rounded-lg"
+                            priority
+                          />
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                </Carousel>
+              </div>
             </div>
           </div>
         </div>
