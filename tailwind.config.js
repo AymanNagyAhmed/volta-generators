@@ -156,6 +156,13 @@ export default {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
+  			},
+  			corporate: {
+  				blue: {
+  					DEFAULT: '#002F69',
+  					transparent: '#002F69CC',
+  					dark: '#001F46'
+  				}
   			}
   		},
   		backgroundImage: {

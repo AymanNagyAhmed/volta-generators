@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -11,6 +11,8 @@ export function OurBrands() {
     loop: true,
     align: "start",
     slidesToScroll: 1,
+    duration: 20,
+    dragFree: true,
     breakpoints: {
       '(min-width: 768px)': { slidesToScroll: 2 },
       '(min-width: 1024px)': { slidesToScroll: 3 },
@@ -18,25 +20,77 @@ export function OurBrands() {
   });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+  const [isHovered, setIsHovered] = useState(false);
+  
+  // Use useRef instead of useState for the interval
+  const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
-  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
-  const scrollTo = useCallback((index: number) => emblaApi && emblaApi.scrollTo(index), [emblaApi]);
+  // Autoplay configuration
+  const AUTOPLAY_INTERVAL = 5000;
+
+  const clearAutoplay = useCallback(() => {
+    if (autoplayIntervalRef.current) {
+      clearInterval(autoplayIntervalRef.current);
+      autoplayIntervalRef.current = null;
+    }
+  }, []);
+
+  const startAutoplay = useCallback(() => {
+    clearAutoplay();
+    if (!isHovered && emblaApi) {
+      autoplayIntervalRef.current = setInterval(() => {
+        emblaApi.scrollNext();
+      }, AUTOPLAY_INTERVAL);
+    }
+  }, [clearAutoplay, emblaApi, isHovered]);
+
+  // Manual navigation
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
+  const scrollTo = useCallback((index: number) => {
+    if (emblaApi) emblaApi.scrollTo(index);
+  }, [emblaApi]);
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
     setSelectedIndex(emblaApi.selectedScrollSnap());
   }, [emblaApi]);
 
+  // Initialize
   useEffect(() => {
     if (!emblaApi) return;
+    
     onSelect();
     setScrollSnaps(emblaApi.scrollSnapList());
     emblaApi.on("select", onSelect);
+    
     return () => {
       emblaApi.off("select", onSelect);
     };
   }, [emblaApi, onSelect]);
+
+  // Handle autoplay
+  useEffect(() => {
+    startAutoplay();
+    return () => clearAutoplay();
+  }, [startAutoplay, clearAutoplay, isHovered]);
+
+  // Handle hover state changes
+  const handleMouseEnter = useCallback(() => {
+    setIsHovered(true);
+    clearAutoplay();
+  }, [clearAutoplay]);
+
+  const handleMouseLeave = useCallback(() => {
+    setIsHovered(false);
+    startAutoplay();
+  }, [startAutoplay]);
 
   const brands = [
     {
@@ -96,7 +150,12 @@ export function OurBrands() {
 
         <div className="max-w-6xl mx-auto relative">
           {/* Carousel Container */}
-          <div className="overflow-hidden" ref={emblaRef}>
+          <div 
+            className="overflow-hidden" 
+            ref={emblaRef}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
             <div className="flex">
               {brands.map((brand) => (
                 <div
@@ -109,8 +168,8 @@ export function OurBrands() {
                         src={brand.logo}
                         alt={brand.name}
                         width={100}
-                        height={50}
-                        className="object-contain"
+                        height={100}
+                        className="object-contain w-auto h-auto"
                       />
                     </div>
                   </div>
@@ -119,12 +178,14 @@ export function OurBrands() {
             </div>
           </div>
 
-          {/* Navigation Buttons - Hide on small screens */}
+          {/* Navigation Buttons */}
           <Button
             variant="ghost"
             size="icon"
             className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white/80 dark:bg-gray-800/80 shadow-lg hover:bg-white dark:hover:bg-gray-800 hidden md:flex"
             onClick={scrollPrev}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
           >
             <ChevronLeft className="h-6 w-6" />
           </Button>
@@ -133,12 +194,18 @@ export function OurBrands() {
             size="icon"
             className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white/80 dark:bg-gray-800/80 shadow-lg hover:bg-white dark:hover:bg-gray-800 hidden md:flex"
             onClick={scrollNext}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
           >
             <ChevronRight className="h-6 w-6" />
           </Button>
 
-          {/* Dots Navigation - Make more prominent on mobile */}
-          <div className="flex justify-center gap-3 mt-6">
+          {/* Dots Navigation */}
+          <div 
+            className="flex justify-center gap-3 mt-6"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
             {scrollSnaps.map((_, index) => (
               <button
                 key={index}

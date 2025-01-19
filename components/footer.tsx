@@ -17,7 +17,7 @@ export default function Footer() {
               alt="AQT Generators"
               width={200}
               height={80}
-              className="mb-4"
+              className="mb-4 w-auto h-auto"
             />
             <div className="space-y-2">
               <div>Diesel Generators in UAE</div>
