@@ -1,9 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { ImageComparison } from "@/components/ui/image-comparison";
 
-export function ImageShowcase() {
+export function OurProjects() {
   return (
     <section className="w-full py-16 bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900">
       <div className="container mx-auto px-4">

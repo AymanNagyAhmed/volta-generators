@@ -2,7 +2,7 @@
 import { Hero } from "@/components/sections/hero";
 import { WhoWeAre } from "@/components/sections/who-we-are";
 import { CoreValues } from "@/components/sections/core-values";
-import { ImageShowcase } from "@/components/sections/image-showcase";
+import { OurProjects } from "@/components/sections/our-projects";
 import { TechnicalSupport } from "@/components/sections/technical-support";
 import { WhyWeAreBest } from "@/components/sections/why-we-are-best";
 import { OurProducts } from "@/components/sections/our-products";
@@ -23,7 +23,7 @@ export default function Home() {
       <CoreValues />
 
       {/* Image Showcase Section */}
-      <ImageShowcase />
+      <OurProjects />
 
       {/* Technical Support Section */}
       <TechnicalSupport />

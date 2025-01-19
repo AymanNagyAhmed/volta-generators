@@ -1,14 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
 import {
   Carousel,
   CarouselContent,
-  CarouselNavigation,
   CarouselItem,
 } from '@/components/ui/carousel';
 
-const MotionDiv = motion.div as any;
 
 const products = [
   {
