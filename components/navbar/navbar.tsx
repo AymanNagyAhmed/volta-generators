@@ -28,7 +28,7 @@ import {
   Mail,
   MapPin,
 } from "@/components/shared/icons";
-import { ProductsDropdown } from "./navbar/products-dropdown";
+import { ProductsDropdown } from "@/components/navbar/products-dropdown";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

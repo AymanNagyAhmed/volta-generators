@@ -1,11 +1,4 @@
-import { Link } from "@nextui-org/link";
-import { Snippet } from "@nextui-org/snippet";
-import { Code } from "@nextui-org/code";
-import { button as buttonStyles } from "@nextui-org/theme";
 
-import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/primitives";
-import { GithubIcon } from "@/components/icons";
 import { Hero } from "@/components/sections/hero";
 import { WhoWeAre } from "@/components/sections/who-we-are";
 import { CoreValues } from "@/components/sections/core-values";
@@ -16,7 +9,6 @@ import { OurProducts } from "@/components/sections/our-products";
 import { GeographicalCoverage } from "@/components/sections/geographical-coverage";
 import { FAQ } from "@/components/sections/faq";
 import { OurBrands } from "@/components/sections/our-brands";
-import Footer from "@/components/footer";
 
 export default function Home() {
   return (
