@@ -52,41 +52,41 @@ export const Navbar = () => {
   return (
     <div className="w-full flex flex-col items-center">
       <div className="w-full lg:w-[80%] max-w-[1400px]">
-        {/* Top Contact Bar */}
-        <div className="w-fit mx-auto text-corporate-blue-dark py-1.5 px-4 hidden lg:block bg-transparent backdrop-blur-sm rounded-lg">
+        {/* Top Contact Bar - Increased text and icon sizes */}
+        <div className="w-fit mx-auto text-corporate-blue-dark py-2 px-6 hidden lg:block bg-transparent backdrop-blur-sm rounded-lg">
           <div className="flex justify-center items-center">
-            {/* Contact Items */}
-            <div className="flex items-center space-x-4 flex-shrink-0">
+            {/* Contact Items - Updated text and icon sizes */}
+            <div className="flex items-center space-x-6 flex-shrink-0">
               {/* Phone */}
-              <div className="flex items-center space-x-1.5">
-                <Phone size={14} className="text-corporate-blue-dark" />
-                <span className="text-xs text-corporate-blue-dark font-medium">+1 234 567 890</span>
+              <div className="flex items-center space-x-2">
+                <Phone size={20} className="text-corporate-blue-dark" />
+                <span className="text-sm text-corporate-blue-dark font-medium">+1 234 567 890</span>
               </div>
               {/* Email */}
-              <div className="flex items-center space-x-1.5">
-                <Mail size={14} className="text-corporate-blue-dark" />
-                <span className="text-xs text-corporate-blue-dark font-medium">contact@example.com</span>
+              <div className="flex items-center space-x-2">
+                <Mail size={20} className="text-corporate-blue-dark" />
+                <span className="text-sm text-corporate-blue-dark font-medium">contact@example.com</span>
               </div>
               {/* Address */}
-              <div className="flex items-center space-x-1.5">
-                <MapPin size={14} className="text-corporate-blue-dark" />
-                <span className="text-xs text-corporate-blue-dark font-medium">123 Business Street, NY</span>
+              <div className="flex items-center space-x-2">
+                <MapPin size={20} className="text-corporate-blue-dark" />
+                <span className="text-sm text-corporate-blue-dark font-medium">123 Business Street, NY</span>
               </div>
             </div>
 
-            {/* Social Links */}
-            <div className="flex items-center gap-3 ml-4 flex-shrink-0">
+            {/* Social Links - Updated icon sizes */}
+            <div className="flex items-center gap-4 ml-6 flex-shrink-0">
               <Link isExternal aria-label="Twitter" href={siteConfig.links.twitter} 
                 className="text-corporate-blue-dark hover:text-corporate-blue transition-colors">
-                <TwitterIcon size={14} />
+                <TwitterIcon size={20} />
               </Link>
               <Link isExternal aria-label="Discord" href={siteConfig.links.discord} 
                 className="text-corporate-blue-dark hover:text-corporate-blue transition-colors">
-                <DiscordIcon size={14} />
+                <DiscordIcon size={20} />
               </Link>
               <Link isExternal aria-label="Github" href={siteConfig.links.github} 
                 className="text-corporate-blue-dark hover:text-corporate-blue transition-colors">
-                <GithubIcon size={14} />
+                <GithubIcon size={20} />
               </Link>
             </div>
           </div>
