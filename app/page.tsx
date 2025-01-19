@@ -16,10 +16,11 @@ import { OurProducts } from "@/components/sections/our-products";
 import { GeographicalCoverage } from "@/components/sections/geographical-coverage";
 import { FAQ } from "@/components/sections/faq";
 import { OurBrands } from "@/components/sections/our-brands";
+import Footer from "@/components/footer";
 
 export default function Home() {
   return (
-    <section className="flex flex-col items-center justify-center gap-4">
+    <section className="flex flex-col items-center justify-center w-full">
       {/* Hero Section */}
       <Hero />
 
@@ -49,15 +50,6 @@ export default function Home() {
 
       {/* Our Brands Section */}
       <OurBrands />
-
-      {/* Rest of your content */}
-      <div className="mt-8">
-        <Snippet hideCopyButton hideSymbol variant="bordered">
-          <span>
-            Get started by editing <Code color="primary">app/page.tsx</Code>
-          </span>
-        </Snippet>
-      </div>
     </section>
   );
 }

@@ -22,12 +22,12 @@ export function WhoWeAre() {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto"
         >
-          <h2 className="text-3xl font-bold mb-6 text-blue-950 dark:text-white">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-blue-950 dark:text-white">
             WHO WE ARE
             <div className="h-1 w-24 bg-yellow-400 mt-2"></div>
           </h2>
           
-          <p className="text-gray-700 dark:text-gray-300 mb-12 text-lg leading-relaxed">
+          <p className="text-gray-700 dark:text-gray-300 mb-12 text-base sm:text-lg leading-relaxed">
             At AQT Generators, we take pride in being a dynamic force in the realm of diesel
             generator sets, offering an extensive range of international brands renowned for their
             reliability and performance. Our commitment to excellence is reflected in our
@@ -36,25 +36,26 @@ export function WhoWeAre() {
           </p>
         </MotionDiv>
 
-        <InfiniteSlider className="py-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto mb-16">
           {stats.map((stat, index) => (
             <MotionDiv
               key={index}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="min-w-[200px] px-8 py-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg mx-4 text-center">
-              <h3 className="text-3xl font-bold text-blue-600 dark:text-blue-400">
+              className="p-4 sm:px-8 sm:py-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg text-center"
+            >
+              <h3 className="text-xl sm:text-3xl font-bold text-blue-600 dark:text-blue-400">
                 {stat.number}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 mt-2">
+              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mt-2">
                 {stat.label}
               </p>
             </MotionDiv>
           ))}
-        </InfiniteSlider>
+        </div>
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {['Vision', 'Mission'].map((type, index) => (
             <MotionDiv
               key={type}

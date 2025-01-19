@@ -92,15 +92,15 @@ export function OurProducts() {
           <div className="h-1 w-24 bg-brand-secondary mt-2 mx-auto"></div>
         </h2>
         
-        <div className="relative w-full max-w-6xl mx-auto px-12">
+        <div className="relative w-full max-w-6xl mx-auto px-4 sm:px-12">
           <Carousel>
-            <CarouselContent className="-ml-4">
+            <CarouselContent className="-ml-2 sm:-ml-4">
               {products.map((product) => (
                 <CarouselItem 
                   key={product.id} 
-                  className="pl-4 basis-full sm:basis-1/2 lg:basis-1/4 flex"
+                  className="pl-2 sm:pl-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
                 >
-                  <div className="flex flex-col items-center p-4 border border-zinc-200 dark:border-zinc-800 rounded-lg bg-white dark:bg-gray-900 w-full">
+                  <div className="flex flex-col items-center p-3 sm:p-4 border border-zinc-200 dark:border-zinc-800 rounded-lg bg-white dark:bg-gray-900 w-full">
                     <div className="relative w-full aspect-square mb-4 overflow-hidden rounded-lg">
                       <img 
                         src={product.image} 
@@ -108,15 +108,15 @@ export function OurProducts() {
                         className="object-cover w-full h-full"
                       />
                     </div>
-                    <h3 className="text-xl font-semibold text-center mb-2 text-brand-text-light-primary dark:text-brand-text-dark-primary">
+                    <h3 className="text-base sm:text-xl font-semibold text-center mb-2 text-brand-text-light-primary dark:text-brand-text-dark-primary">
                       {product.title}
                     </h3>
-                    <p className="text-sm text-brand-text-light-secondary dark:text-brand-text-dark-secondary text-center mb-4">
+                    <p className="text-xs sm:text-sm text-brand-text-light-secondary dark:text-brand-text-dark-secondary text-center mb-4">
                       {product.description}
                     </p>
                     <a 
                       href={product.link}
-                      className="inline-flex items-center text-brand-secondary hover:text-brand-secondary-hover transition-colors font-semibold"
+                      className="inline-flex items-center text-brand-secondary hover:text-brand-secondary-hover transition-colors font-semibold text-sm sm:text-base"
                     >
                       LEARN MORE
                     </a>

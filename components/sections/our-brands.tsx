@@ -73,21 +73,21 @@ export function OurBrands() {
         </h2>
         
         <div className="relative overflow-hidden">
-          <div className="flex items-center justify-center gap-8 flex-wrap">
+          <div className="flex items-center justify-center gap-4 flex-wrap">
             {brands.map((brand, index) => (
               <MotionDiv
                 key={brand.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="w-40 h-24 relative flex items-center justify-center bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
+                className="w-[140px] sm:w-40 h-20 sm:h-24 relative flex items-center justify-center bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
               >
                 <Image
                   src={brand.logo}
                   alt={brand.name}
-                  width={120}
-                  height={60}
-                  className="object-contain"
+                  width={100}
+                  height={50}
+                  className="object-contain p-2"
                 />
               </MotionDiv>
             ))}

@@ -6,6 +6,7 @@ import { Providers } from "./providers";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import Footer from "@/components/footer";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: {
@@ -33,11 +34,16 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body className="min-h-screen bg-gradient-pattern bg-cover bg-fixed bg-center bg-no-repeat w-screen overflow-x-hidden font-sans antialiased">
+      <body 
+        className={cn(
+          "min-h-screen bg-gradient-pattern bg-cover bg-fixed bg-center bg-no-repeat font-sans antialiased",
+          fontSans.variable
+        )}
+      >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <div className="relative flex flex-col min-h-screen w-full">
+          <div className="relative flex flex-col min-h-screen">
             <Navbar />
-            <main className="container mx-auto max-w-full md:max-w-7xl flex-grow px-0 md:px-6 pt-16">
+            <main className="flex-grow">
               {children}
             </main>
             <Footer />
