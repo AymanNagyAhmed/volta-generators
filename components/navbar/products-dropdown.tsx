@@ -15,8 +15,8 @@ export const ProductsDropdown = () => {
       <DropdownTrigger>
         <Button
           disableRipple
-          className="p-0 bg-transparent data-[hover=true]:bg-transparent"
-          endContent={<ChevronDown fill="currentColor" size={16} />}
+          className="p-0 bg-transparent data-[hover=true]:bg-transparent text-white hover:text-white/80"
+          endContent={<ChevronDown fill="white" size={16} />}
           radius="sm"
           variant="light"
         >

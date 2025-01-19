@@ -17,7 +17,6 @@ import clsx from "clsx";
 import { useState } from "react";
 
 import { siteConfig } from "@/config/site";
-import { ThemeSwitch } from "@/components/theme-switch";
 import {
   TwitterIcon,
   GithubIcon,
@@ -38,13 +37,13 @@ export const Navbar = () => {
     <Input
       aria-label="Search"
       classNames={{
-        inputWrapper: "bg-default-100 h-11 w-64",
-        input: "text-base",
+        inputWrapper: "bg-default-100 h-8 w-64",
+        input: "text-sm",
       }}
       labelPlacement="outside"
       placeholder="Search..."
       startContent={
-        <SearchIcon className="text-xl text-default-400 pointer-events-none flex-shrink-0" />
+        <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
       }
       type="search"
     />
@@ -52,42 +51,43 @@ export const Navbar = () => {
 
   return (
     <div className="w-full flex flex-col items-center">
-      <div className="w-[90%] max-w-[1400px]">
+      <div className="w-full lg:w-[80%] max-w-[1400px]">
         {/* Top Contact Bar */}
-        <div className="w-full bg-layout-navbar-bg dark:bg-layout-navbar-bg-dark text-layout-navbar-text-primary dark:text-layout-navbar-text-primary-dark py-2 rounded-b-lg px-4 hidden lg:block border-b border-layout-navbar-border dark:border-layout-navbar-border-dark backdrop-blur-[2px]">
-          <div className="flex justify-center items-center max-w-[1024px] mx-auto">
+        <div className="w-fit mx-auto text-white py-2 px-4 hidden lg:block bg-gradient-to-l from-[#2563eb]/90 via-[#1d4ed8]/90 to-[#1e40af]/90 rounded-lg backdrop-blur-sm">
+          <div className="flex justify-center items-center">
             {/* Contact Items */}
             <div className="flex items-center space-x-4 flex-shrink-0">
               {/* Phone */}
               <div className="flex items-center space-x-2">
-                <Phone size={16} className="text-layout-navbar-text-secondary dark:text-layout-navbar-text-secondary-dark" />
-                <span className="text-sm text-layout-navbar-text-primary dark:text-layout-navbar-text-primary-dark">+1 234 567 890</span>
+                <Phone size={16} className="text-white" />
+                <span className="text-sm text-white font-medium">+1 234 567 890</span>
               </div>
               {/* Email */}
               <div className="flex items-center space-x-2">
-                <Mail size={16} className="text-layout-navbar-text-secondary dark:text-layout-navbar-text-secondary-dark" />
-                <span className="text-sm text-layout-navbar-text-primary dark:text-layout-navbar-text-primary-dark">contact@example.com</span>
+                <Mail size={16} className="text-white" />
+                <span className="text-sm text-white font-medium">contact@example.com</span>
               </div>
               {/* Address */}
               <div className="flex items-center space-x-2">
-                <MapPin size={16} className="text-layout-navbar-text-secondary dark:text-layout-navbar-text-secondary-dark" />
-                <span className="text-sm text-layout-navbar-text-primary dark:text-layout-navbar-text-primary-dark">123 Business Street, NY</span>
+                <MapPin size={16} className="text-white" />
+                <span className="text-sm text-white font-medium">123 Business Street, NY</span>
               </div>
             </div>
 
             {/* Social Links */}
             <div className="flex items-center gap-4 ml-4 flex-shrink-0">
               <Link isExternal aria-label="Twitter" href={siteConfig.links.twitter} 
-                className="text-layout-navbar-text-secondary dark:text-layout-navbar-text-secondary-dark hover:text-layout-navbar-text-hover dark:hover:text-layout-navbar-text-hover-dark transition-colors">
+                className="text-white hover:text-white/80 transition-colors">
                 <TwitterIcon size={16} />
               </Link>
-              <Link isExternal aria-label="Discord" href={siteConfig.links.discord} className="text-layout-navbar-text-secondary dark:text-layout-navbar-text-secondary-dark hover:text-layout-navbar-text-hover dark:hover:text-layout-navbar-text-hover-dark transition-colors">
+              <Link isExternal aria-label="Discord" href={siteConfig.links.discord} 
+                className="text-white hover:text-white/80 transition-colors">
                 <DiscordIcon size={16} />
               </Link>
-              <Link isExternal aria-label="Github" href={siteConfig.links.github} className="text-layout-navbar-text-secondary dark:text-layout-navbar-text-secondary-dark hover:text-layout-navbar-text-hover dark:hover:text-layout-navbar-text-hover-dark transition-colors">
+              <Link isExternal aria-label="Github" href={siteConfig.links.github} 
+                className="text-white hover:text-white/80 transition-colors">
                 <GithubIcon size={16} />
               </Link>
-              <ThemeSwitch />
             </div>
           </div>
         </div>
@@ -97,7 +97,7 @@ export const Navbar = () => {
           maxWidth="sm"
           position="sticky"
           onMenuOpenChange={setIsMenuOpen}
-          className="bg-layout-navbar-bg dark:bg-layout-navbar-bg-dark backdrop-blur-sm border-b border-layout-navbar-border dark:border-layout-navbar-border-dark"
+          className="bg-[#1e40af] text-white backdrop-blur-sm border-b border-white/10"
         >
           {/* Logo Section */}
           <NavbarContent className="basis-auto" justify="start">
@@ -126,15 +126,15 @@ export const Navbar = () => {
                     {item.href ? (
                       <NextLink
                         className={clsx(
-                          "text-slate-600 hover:text-blue-500 transition-colors",
-                          "data-[active=true]:text-blue-400 data-[active=true]:font-medium"
+                          "text-white hover:text-white/80 transition-colors",
+                          "data-[active=true]:text-white data-[active=true]:font-medium"
                         )}
                         href={item.href}
                       >
                         {item.label}
                       </NextLink>
                     ) : (
-                      <span className="text-slate-600">{item.label}</span>
+                      <span className="text-white">{item.label}</span>
                     )}
                   </NavbarItem>
                 );
@@ -149,7 +149,6 @@ export const Navbar = () => {
 
           {/* Mobile Menu Toggle Section */}
           <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-            <ThemeSwitch />
             <NavbarMenuToggle />
           </NavbarContent>
 
