@@ -7,19 +7,19 @@ import { Check } from "lucide-react";
 const values = [
   {
     title: "Honesty",
-    description: "We believe in straight forward dealings. Our business thrives on honesty, transparency, and fairness. You can trust us to provide the best solutions without hidden costs."
+    description: "At Volta Generators, integrity is the cornerstone of everything we do. We are committed to fostering trust through transparent and ethical practices in every interaction. Our approach is simple: clear communication, no hidden agendas, and fair dealings. You can rely on us to deliver genuine, high-quality solutions that prioritize your needs without compromise. Honesty isn’t just a value—it’s the foundation of our relationship with you."
   },
   {
     title: "Quality",
-    description: "Top quality doesn't have to mean top prices. We are committed to delivering generators and services that meet high standards without making a dent in your budget."
+    description: "We take pride in our products, which are engineered for durability and efficiency, ensuring optimal performance in challenging environments. Quality is at the heart of everything we do. Our products undergo rigorous testing and quality control processes to ensure they meet the highest industry standards. We employ advanced manufacturing techniques, utilizing the finest materials to guarantee the longevity and reliability of our power systems."
   },
   {
     title: "Accessibility",
     description: "Power should be accessible to all. We focus on making our products and services accessible to a wide range of clients, ensuring that everyone can benefit from reliable and affordable power solutions."
   },
   {
-    title: "Customer Centric Focus",
-    description: "Your needs come first. We're not here to just sell generators we're here to understand your requirements and provide solutions that truly fit your budget and expectations. Your satisfaction is the measure of our success."
+    title: "Customer Focus",
+    description: "We prioritize our customers’ needs, providing tailored solutions and exceptional service to meet their unique requirements."
   }
 ];
 

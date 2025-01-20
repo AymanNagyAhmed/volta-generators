@@ -6,9 +6,8 @@ import { InfiniteSlider } from "@/components/ui/infinite-slider";
 const MotionDiv = motion.div as any; // Temporary type assertion to resolve the error
 
 const stats = [
-  { number: "12+", label: "Years Experience" },
-  { number: "500+", label: "Projects Completed" },
-  { number: "50+", label: "Global Partners" },
+  { number: "30+", label: "Years Experience" },
+  { number: "490+", label: "Projects Completed" },
   { number: "24/7", label: "Support Available" },
 ];
 
@@ -28,11 +27,12 @@ export function WhoWeAre() {
           </h2>
           
           <p className="text-gray-700 dark:text-gray-300 mb-12 text-base sm:text-lg leading-relaxed">
-            At AQT Generators, we take pride in being a dynamic force in the realm of diesel
-            generator sets, offering an extensive range of international brands renowned for their
-            reliability and performance. Our commitment to excellence is reflected in our
-            partnerships with world-famous engine manufacturers such as Perkins and Cummins,
-            coupled with top-notch alternators from Stamford and Leroy Somer.
+          We are offering Tower ligh and Diesel Generator  Sets from 4.5 kVA to 4125 kVA in single unit and higher 
+          ratings generators in multiple unit configurations.
+          These diesel gensets are powered by world-class engines like Baudouin ,PERKINS ,KUBOTA ,CUMMINS coupled with LEROYSOMER , STAMFORD  alternators to provide optimum power solutions. These reliable diesel generators are installed and running in 
+          different parts of the world .Volta generators is steadily growing its reputation as a reliable source of world class products in power generation with the ability to provide custom built power solutions at short notice.
+          Volta Generators have become a recognized force within the generator industry, and we attribute our increasing dominance within this sector to the company's ability to embrace change and to offer a dynamic 
+          platform for market demand.
           </p>
         </MotionDiv>
 
@@ -69,9 +69,9 @@ export function WhoWeAre() {
               </h3>
               <p className="text-gray-700 dark:text-gray-300">
                 {type === 'Vision' ? (
-                  'We envision a future where reliable power is within reach for every individual and business. By keeping our prices reasonable and our standards high, we aim to bridge gaps and light up spaces where power is essential.'
+                  'Volta Generators is a distinguished manufacturer specializing in the production of high-quality diesel generating sets and comprehensive power systems. Our esteemed "VOLTA" range encompasses a wide spectrum of power solutions, with capacities ranging from 4.5KVA to 4125 KVA. Renowned for our commitment to excellence, Volta Generators has established an international reputation for delivering superior power generation products that meet the diverse needs of our clients across various sectors.'
                 ) : (
-                  'AQT Generators strives to be your goto source for affordable excellence, delivering reliable power solutions backed by world-class partnerships and unmatched expertise in the field.'
+                  'At Volta Generators, our mission is to provide reliable and efficient power solutions that empower businesses and communities worldwide. We are dedicated to innovation, quality, and customer satisfaction, ensuring that our products are at the forefront of technology and performance.'
                 )}
               </p>
             </MotionDiv>

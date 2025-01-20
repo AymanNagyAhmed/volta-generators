@@ -86,7 +86,7 @@ export const Hero = () => {
   }, [startAutoplay]);
 
   const heroImages = [
-    { id: 1, src: "/images/generators/generator-1.webp", alt: "Generator 1",desc:"description 1 lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos." },
+    { id: 1, src: "/images/generators/generator-1.jpeg", alt: "Generator 1",desc:"description 1 lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos." },
     { id: 2, src: "/images/generators/generator-2.webp", alt: "Generator 2",desc:"description 2 lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos." },
     { id: 3, src: "/images/generators/generator-3.webp", alt: "Generator 3",desc:"description 3 lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos." },
     { id: 4, src: "/images/generators/generator-4.webp", alt: "Generator 4",desc:"description 4 lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos." },
