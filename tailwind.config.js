@@ -180,9 +180,13 @@ export default {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		fontSize: {
-  			'nav': ['1.75rem !important', { // Added !important
+  			'nav': ['1.75rem !important', {
   				lineHeight: '2rem',
   				fontWeight: '500'
+  			}],
+  			'page-content': ['1.5625rem', {
+  				lineHeight: '2.125rem',
+  				fontWeight: '400'
   			}],
   		},
   	}
