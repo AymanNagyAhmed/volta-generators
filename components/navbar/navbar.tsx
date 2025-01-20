@@ -93,19 +93,21 @@ export const Navbar = () => {
             {/* Contact Items - Updated text and icon sizes */}
             <div className="flex items-center space-x-6 flex-shrink-0">
               {/* Phone */}
-              <div className="flex items-center space-x-2">
-                <Phone size={20} className="text-corporate-blue-dark" />
-                <span className="text-sm text-corporate-blue-dark font-medium">+1 234 567 890</span>
-              </div>
+              {siteConfig.contact.phones.map((phone, index) => (
+                <div key={phone} className="flex items-center space-x-2">
+                  <Phone size={20} className="text-corporate-blue-dark" />
+                  <span className="text-sm text-corporate-blue-dark font-medium">{phone}</span>
+                </div>
+              ))}
               {/* Email */}
               <div className="flex items-center space-x-2">
                 <Mail size={20} className="text-corporate-blue-dark" />
-                <span className="text-sm text-corporate-blue-dark font-medium">contact@example.com</span>
+                <span className="text-sm text-corporate-blue-dark font-medium">{siteConfig.contact.email}</span>
               </div>
               {/* Address */}
               <div className="flex items-center space-x-2">
                 <MapPin size={20} className="text-corporate-blue-dark" />
-                <span className="text-sm text-corporate-blue-dark font-medium">123 Business Street, NY</span>
+                <span className="text-sm text-corporate-blue-dark font-medium">{siteConfig.contact.address}</span>
               </div>
             </div>
 
@@ -237,17 +239,22 @@ export const Navbar = () => {
 
               {/* Mobile Contact Info */}
               <div className="flex flex-col space-y-4 py-4 border-b border-gray-600/50">
-                <div className="flex items-center space-x-2">
-                  <Phone size={16} />
-                  <span className="text-sm">+1 234 567 890</span>
-                </div>
+                {/* Phone Numbers */}
+                {siteConfig.contact.phones.map((phone, index) => (
+                  <div key={phone} className="flex items-center space-x-2">
+                    <Phone size={16} />
+                    <span className="text-sm">{phone}</span>
+                  </div>
+                ))}
+                
+                {/* Rest of contact info */}
                 <div className="flex items-center space-x-2">
                   <Mail size={16} />
-                  <span className="text-sm">contact@example.com</span>
+                  <span className="text-sm">{siteConfig.contact.email}</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <MapPin size={16} />
-                  <span className="text-sm">123 Business Street, NY</span>
+                  <span className="text-sm">{siteConfig.contact.address}</span>
                 </div>
               </div>
 

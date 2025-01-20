@@ -120,8 +120,8 @@ export function OurBrands() {
     },
     {
       id: 6,
-      name: "Meccalte",
-      logo: "/images/brands/meccalte.png",
+      name: "Kubota",
+      logo: "/images/brands/kubota.png",
     },
     {
       id: 7,
@@ -130,8 +130,8 @@ export function OurBrands() {
     },
     {
       id: 8,
-      name: "Murphy",
-      logo: "/images/brands/murphy.png",
+      name: "Baudouin",
+      logo: "/images/brands/baudouin.png",
     },
     {
       id: 9,
