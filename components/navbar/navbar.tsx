@@ -79,11 +79,11 @@ export const Navbar = () => {
 
   return (
     <div className="w-full flex flex-col items-center fixed top-0 z-50">
-      <div className="w-full lg:w-[80%] max-w-[1400px]">
+      <div className="w-full lg:w-[95%]">
         {/* Top Contact Bar */}
-        <div 
+        <div
           className={`
-            w-fit mx-auto text-corporate-blue-dark py-2 px-6 
+            w-fit mx-auto text-corporate-blue-dark py-2 px-6
             hidden lg:block bg-transparent backdrop-blur-sm rounded-lg
             transition-all duration-300 ease-in-out
             ${showTopBar ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full'}
@@ -131,24 +131,28 @@ export const Navbar = () => {
         <NextUINavbar
           isMenuOpen={isMenuOpen}
           onMenuOpenChange={setIsMenuOpen}
-          maxWidth="sm"
+          maxWidth="full"
           isBlurred={true}
           className={`
-            bg-corporate-blue-transparent text-white backdrop-blur-sm 
-            border-b border-white/10 transition-all duration-300
-            ${showTopBar ? '' : 'shadow-lg'}
+            bg-corporate-gray-light text-gray-800 backdrop-blur-md
+            border-b border-white/10 transition-all duration-300 px-4
+            py-6
+            ${showTopBar ? '' : 'shadow-xl'}
           `}
         >
           {/* Logo Section */}
-          <NavbarContent className="basis-auto" justify="start">
+          <NavbarContent className="basis-auto w-full" justify="start">
             <NavbarBrand as="li" className="gap-3">
               <NextLink className="flex justify-start items-center gap-1" href="/">
                 <div className="flex items-center">
-                  <img 
-                    src="/images/logo-new.png" 
+                  <img
+                    src="/images/logo-volta.jpg" 
                     alt="Logo" 
-                    className="h-8 w-auto object-contain"
+                    className="h-20 w-auto object-contain"
                   />
+                  <span className="ml-4 font-bold text-gray-800 hidden sm:block text-nav">
+                    Volta Generators FZE
+                  </span>
                 </div>
               </NextLink>
             </NavbarBrand>
@@ -156,7 +160,7 @@ export const Navbar = () => {
 
           {/* Navigation Links Section */}
           <NavbarContent className="hidden sm:flex flex-1" justify="center">
-            <ul className="hidden lg:flex gap-4 justify-center items-center">
+            <ul className="hidden lg:flex gap-6 justify-center items-center">
               {siteConfig.navItems.map((item) => {
                 if (item.type === "dropdown" && item.component === "ProductsDropdown") {
                   return <ProductsDropdown key="products-dropdown" />;
@@ -166,15 +170,15 @@ export const Navbar = () => {
                     {item.href ? (
                       <NextLink
                         className={clsx(
-                          "text-white hover:text-white/80 transition-colors",
-                          "data-[active=true]:text-white data-[active=true]:font-medium"
+                          "text-gray-700 hover:text-gray-900 transition-colors text-nav",
+                          "data-[active=true]:text-gray-900 data-[active=true]:font-medium"
                         )}
                         href={item.href}
                       >
                         {item.label}
                       </NextLink>
                     ) : (
-                      <span className="text-white">{item.label}</span>
+                      <span className="text-gray-700 text-nav">{item.label}</span>
                     )}
                   </NavbarItem>
                 );

@@ -162,6 +162,12 @@ export default {
   					DEFAULT: '#002F69',
   					transparent: '#002F69CC',
   					dark: '#001F46'
+  				},
+  				gray: {
+  					light: {
+  						DEFAULT: '#F8F9FACC',
+  						darker: '#E9ECEFCC'
+  					}
   				}
   			}
   		},
@@ -172,7 +178,13 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+  		fontSize: {
+  			'nav': ['1.75rem !important', { // Added !important
+  				lineHeight: '2rem',
+  				fontWeight: '500'
+  			}],
+  		},
   	}
   },
   darkMode: ["class", 'class'],
