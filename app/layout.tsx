@@ -39,6 +39,7 @@ export default function RootLayout({
           "min-h-screen bg-gradient-pattern bg-cover bg-fixed bg-center bg-no-repeat font-sans antialiased",
           fontSans.variable
         )}
+        suppressHydrationWarning
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <div className="relative flex flex-col min-h-screen">
