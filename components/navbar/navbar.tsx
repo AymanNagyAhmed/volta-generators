@@ -136,8 +136,8 @@ export const Navbar = () => {
           maxWidth="full"
           isBlurred={true}
           className={`
-            bg-corporate-gray-light text-gray-800 backdrop-blur-md
-            border-b border-white/10 transition-all duration-300 px-4
+            bg-corporate-gray-light text-gray-700 backdrop-blur-md
+            border-b border-gray-400 transition-all duration-300 px-4
             py-6
             ${showTopBar ? '' : 'shadow-xl'}
           `}

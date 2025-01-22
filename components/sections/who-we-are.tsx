@@ -13,7 +13,7 @@ const stats = [
 
 export function WhoWeAre() {
   return (
-    <section className="w-full py-16 bg-white dark:bg-gray-950">
+    <section className="w-full py-16 bg-gradient-to-b from-gray-50 to-white text-gray-700">
       <div className="container mx-auto px-4">
         <MotionDiv
           initial={{ opacity: 0 }}
@@ -21,12 +21,12 @@ export function WhoWeAre() {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto"
         >
-          <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-blue-950 dark:text-white">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-6">
             WHO WE ARE
             <div className="h-1 w-24 bg-gray-400 mt-2"></div>
           </h2>
           
-          <p className="text-gray-700 dark:text-gray-300 mb-12 text-base sm:text-lg leading-relaxed">
+          <p className="mb-12 text-base sm:text-lg leading-relaxed">
           We are offering Tower ligh and Diesel Generator  Sets from 4.5 kVA to 4125 kVA in single unit and higher 
           ratings generators in multiple unit configurations.
           These diesel gensets are powered by world-class engines like Baudouin ,PERKINS ,KUBOTA ,CUMMINS coupled with LEROYSOMER , STAMFORD  alternators to provide optimum power solutions. These reliable diesel generators are installed and running in 
@@ -36,19 +36,19 @@ export function WhoWeAre() {
           </p>
         </MotionDiv>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto mb-16">
+        <div className="flex flex-col sm:flex-row justify-between max-w-4xl mx-auto mb-16 w-full gap-8">
           {stats.map((stat, index) => (
             <MotionDiv
               key={index}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="p-4 sm:px-8 sm:py-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg text-center"
+              className="flex-1 p-4 sm:px-6 sm:py-6 bg-white rounded-xl shadow-lg text-center"
             >
-              <h3 className="text-xl sm:text-3xl font-bold text-blue-600 dark:text-blue-400">
+              <h3 className="text-xl sm:text-3xl font-bold">
                 {stat.number}
               </h3>
-              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mt-2">
+              <p className="text-sm sm:text-base mt-2">
                 {stat.label}
               </p>
             </MotionDiv>
@@ -62,12 +62,12 @@ export function WhoWeAre() {
               initial={{ opacity: 0, x: index === 0 ? -20 : 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg"
+              className="bg-white p-6 rounded-xl shadow-lg"
             >
-              <h3 className="text-xl font-semibold mb-4 text-blue-950 dark:text-white">
+              <h3 className="text-xl font-semibold mb-4">
                 Our {type}
               </h3>
-              <p className="text-gray-700 dark:text-gray-300">
+              <p className="">
                 {type === 'Vision' ? (
                   'Volta Generators is a distinguished manufacturer specializing in the production of high-quality diesel generating sets and comprehensive power systems. Our esteemed "VOLTA" range encompasses a wide spectrum of power solutions, with capacities ranging from 4.5KVA to 4125 KVA. Renowned for our commitment to excellence, Volta Generators has established an international reputation for delivering superior power generation products that meet the diverse needs of our clients across various sectors.'
                 ) : (

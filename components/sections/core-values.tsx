@@ -7,7 +7,7 @@ import { Check } from "lucide-react";
 const values = [
   {
     title: "Honesty",
-    description: "At Volta Generators, integrity is the cornerstone of everything we do. We are committed to fostering trust through transparent and ethical practices in every interaction. Our approach is simple: clear communication, no hidden agendas, and fair dealings. You can rely on us to deliver genuine, high-quality solutions that prioritize your needs without compromise. Honesty isn’t just a value—it’s the foundation of our relationship with you."
+    description: "At Volta Generators, integrity is the cornerstone of everything we do. We are committed to fostering trust through transparent and ethical practices in every interaction. Our approach is simple: clear communication, no hidden agendas, and fair dealings. You can rely on us to deliver genuine, high-quality solutions that prioritize your needs without compromise. Honesty isn't just a value—it's the foundation of our relationship with you."
   },
   {
     title: "Quality",
@@ -19,7 +19,7 @@ const values = [
   },
   {
     title: "Customer Focus",
-    description: "We prioritize our customers’ needs, providing tailored solutions and exceptional service to meet their unique requirements."
+    description: "We prioritize our customers' needs, providing tailored solutions and exceptional service to meet their unique requirements."
   }
 ];
 
@@ -40,13 +40,19 @@ export function CoreValues() {
               key={value.title}
               onClick={() => setActiveIndex(index)}
               className={`flex flex-col items-center p-6 rounded-xl transition-all ${
-                activeIndex === index 
-                ? 'bg-gray-900 text-white' 
-                : 'bg-gray-300 dark:bg-gray-900 hover:bg-gray-100'
+                activeIndex === index
+                ? 'bg-gradient-to-b from-gray-50 to-white text-gray-700'
+                : 'modern-container hover:bg-gradient-to-b hover:from-gray-50 hover:to-white hover:text-gray-700'
               }`}
             >
-              <div className="w-12 h-12 rounded-full bg-gray-400 flex items-center justify-center mb-4">
-                <Check className="w-6 h-6" />
+              {/* Check Icon */}
+              <div className={`w-12 h-12 rounded-full modern-container flex items-center justify-center mb-4 ${
+                activeIndex === index ? 'bg-gray-700' : ''
+              }`}>
+                <Check className={`w-6 h-6 ${
+                  activeIndex === index ? 'text-white' : 'text-gray-400'
+                }`} 
+                 />
               </div>
               <h3 className="text-lg font-semibold mb-2">{value.title}</h3>
             </button>
@@ -55,15 +61,15 @@ export function CoreValues() {
 
         <TransitionPanel
           activeIndex={activeIndex}
-          className="max-w-2xl mx-auto bg-white dark:bg-gray-900 p-8 rounded-xl shadow-lg"
+          className="max-w-2xl mx-auto bg-white text-gray-700 p-8 rounded-xl shadow-lg"
           transition={{ duration: 0.5 }}
         >
           {values.map((value) => (
             <div key={value.title} className="text-center">
-              <h3 className="text-xl font-semibold mb-4 text-blue-950 dark:text-white">
+              <h3 className="text-xl font-semibold mb-4">
                 {value.title}
               </h3>
-              <p className="text-gray-700 dark:text-gray-300">
+              <p className="text-gray-700">
                 {value.description}
               </p>
             </div>

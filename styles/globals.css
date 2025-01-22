@@ -66,4 +66,7 @@
   .modern-container {
     @apply bg-[#3a3434e6];
   }
+  .modern-container-light {
+    @apply bg-corporate-gray-light;
+  }
 }

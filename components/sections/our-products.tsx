@@ -104,9 +104,9 @@ export function OurProducts() {
   ];
 
   return (
-    <section className="w-full py-16 bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900">
+    <section className="w-full py-16 bg-gradient-to-b from-gray-50 to-white text-gray-700">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12 text-blue-950 dark:text-white">
+        <h2 className="text-3xl font-bold text-center mb-12">
           OUR PRODUCTS
           <div className="h-1 w-24 bg-gray-400 mt-2 mx-auto"></div>
         </h2>
