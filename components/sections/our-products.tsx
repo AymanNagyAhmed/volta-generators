@@ -149,7 +149,7 @@ export function OurProducts() {
             className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white/80 dark:bg-gray-800/80 shadow-lg hover:bg-white dark:hover:bg-gray-800 hidden md:flex"
             onClick={scrollPrev}
           >
-            <ChevronLeft className=" bg-red-600 h-6 w-6" />
+            <ChevronLeft className="h-6 w-6" />
           </Button>
           <Button
             variant="ghost"
