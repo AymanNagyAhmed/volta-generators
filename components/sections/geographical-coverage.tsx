@@ -40,7 +40,7 @@ export function GeographicalCoverage() {
           OUR GEOGRAPHICAL COVERAGE
           <div className="h-1 w-24 bg-brand-secondary mt-2 mx-auto"></div>
         </h2>
-        
+
         {/* Flags InfiniteSlider */}
         <div className="relative w-full flex justify-center mb-12 sm:mb-20">
           <InfiniteSlider durationOnHover={75} gap={16} reverse>
@@ -55,37 +55,7 @@ export function GeographicalCoverage() {
           </InfiniteSlider>
         </div>
 
-        {/* Testimonials */}
-        <div className="mt-12 sm:mt-20">
-          <h2 className="text-2xl sm:text-4xl font-bold text-center mb-8 sm:mb-12">
-            TESTIMONIALS
-            <div className="h-1 w-24 bg-brand-secondary mt-2 mx-auto"></div>
-          </h2>
-          
-          <div className="relative overflow-hidden py-4 sm:py-8">
-            <InfiniteSlider duration={30} gap={16} className="sm:gap-[32px]">
-              {testimonials.map((testimonial, index) => (
-                <div
-                  key={index}
-                  className="flex-shrink-0 w-[300px] sm:w-[400px] p-4 sm:p-6 bg-white dark:bg-zinc-800 rounded-lg shadow-lg"
-                >
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <span key={i} className="text-yellow-400">★</span>
-                    ))}
-                  </div>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4 italic">
-                    "{testimonial.text}"
-                  </p>
-                  <p className="text-right font-semibold text-gray-800 dark:text-gray-200">
-                    - {testimonial.author}
-                  </p>
-                </div>
-              ))}
-            </InfiniteSlider>
-          </div>
-        </div>
       </div>
     </section>
   );
-} 
+}
