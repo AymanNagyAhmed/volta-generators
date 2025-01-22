@@ -23,7 +23,7 @@ export function WhoWeAre() {
         >
           <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-blue-950 dark:text-white">
             WHO WE ARE
-            <div className="h-1 w-24 bg-yellow-400 mt-2"></div>
+            <div className="h-1 w-24 bg-gray-400 mt-2"></div>
           </h2>
           
           <p className="text-gray-700 dark:text-gray-300 mb-12 text-base sm:text-lg leading-relaxed">

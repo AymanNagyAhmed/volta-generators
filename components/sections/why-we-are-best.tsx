@@ -34,11 +34,11 @@ const features = [
 
 export function WhyWeAreBest() {
   return (
-    <section className="w-full py-16 bg-[rgba(58,52,52,0.9)]">
+    <section className="w-full py-16 modern-container text-modern-300">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-4xl font-bold text-center mb-12 text-white">
+        <h2 className="text-4xl font-bold text-center mb-12">
           WHY WE ARE THE BEST
-          <div className="h-1 w-24 bg-white mt-2 mx-auto"></div>
+          <div className="h-1 w-24 bg-gray-400 mt-2 mx-auto"></div>
         </h2>
         
         <div className="flex flex-col gap-6">
@@ -50,11 +50,11 @@ export function WhyWeAreBest() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="flex items-center gap-6"
             >
-              <div className="flex-shrink-0 w-12 h-12 rounded-full border-2 border-white flex items-center justify-center text-xl font-semibold text-white">
+              <div className="flex-shrink-0 w-12 h-12 rounded-full border-2 border-gray-400  flex items-center justify-center text-xl font-semibold">
                 {feature.number}
               </div>
-              <div className="flex-1 bg-[rgba(58,52,52,0.9)] rounded-full p-4 border border-white/20">
-                <h3 className="text-xl font-semibold text-white bg-[rgba(58,52,52,0.9)]">{feature.title}</h3>
+              <div className="flex-1 rounded-full p-4 border ">
+                <h3 className="text-xl font-semibold">{feature.title}</h3>
                 <p className="text-sm text-gray-200">{feature.description}</p>
               </div>
             </MotionDiv>

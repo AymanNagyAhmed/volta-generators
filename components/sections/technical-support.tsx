@@ -8,8 +8,8 @@ const MotionDiv = motion.div as any; // Temporary type assertion to resolve the 
 
 export function TechnicalSupport() {
   return (
-    <section className="w-full py-24 bg-[#3a3434e6] text-white relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10" />
+    <section className="w-full py-24 modern-container relative overflow-hidden text-modern-300">
+      <div className="absolute inset-0" />
       
       <MotionDiv
         initial={{ opacity: 0, y: 20 }}
@@ -22,7 +22,7 @@ export function TechnicalSupport() {
           Need Technical Support?
         </span>
         
-        <h2 className="text-4xl md:text-5xl bg-[#3a3434e6]font-bold mb-8">
+        <h2 className="text-4xl md:text-5xl font-bold mb-8">
           Connect With Us for Expert Advice
         </h2>
 
@@ -32,7 +32,7 @@ export function TechnicalSupport() {
         >
           <Button
             size="lg"
-            className="font-semibold px-8 py-6 text-lg rounded-lg bg-[#3a3434e6] text-white border border-white hover:bg-white hover:text-[#3a3434] transition-colors"
+            className="font-semibold px-8 py-6 text-lg rounded-lg text-modern-300 bg-transparent border border-gray-400"
             endContent={<SparklesIcon className="ml-2" />}
           >
             CONTACT US

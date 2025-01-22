@@ -145,7 +145,7 @@ export function OurBrands() {
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-12 text-gray-800 dark:text-gray-100">
           OUR BRANDS
-          <div className="h-1 w-24 bg-yellow-400 mt-2 mx-auto"></div>
+          <div className="h-1 w-24 bg-gray-400 mt-2 mx-auto"></div>
         </h2>
 
         <div className="max-w-6xl mx-auto relative">

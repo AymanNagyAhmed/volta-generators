@@ -108,7 +108,7 @@ export function OurProducts() {
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-12 text-blue-950 dark:text-white">
           OUR PRODUCTS
-          <div className="h-1 w-24 bg-yellow-400 mt-2 mx-auto"></div>
+          <div className="h-1 w-24 bg-gray-400 mt-2 mx-auto"></div>
         </h2>
 
         <div className="max-w-6xl mx-auto relative">
@@ -131,7 +131,7 @@ export function OurProducts() {
                       <p className="text-sm text-gray-200 mb-2">{product.description}</p>
                       <a 
                         href={product.link}
-                        className="inline-block text-yellow-400 hover:text-yellow-300 text-sm font-semibold transition-colors"
+                        className="inline-block text-gray-400 hover:text-gray-300 text-sm font-semibold transition-colors"
                       >
                         LEARN MORE
                       </a>

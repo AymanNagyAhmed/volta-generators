@@ -27,11 +27,11 @@ export function CoreValues() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="w-full py-16 bg-white dark:bg-gray-950">
+    <section className="w-full py-16 modern-container text-modern-300">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12 text-blue-950 dark:text-white">
+        <h2 className="text-3xl font-bold text-center mb-12">
           Our Core Values
-          <div className="h-1 w-24 bg-yellow-400 mt-2 mx-auto"></div>
+          <div className="h-1 w-24 bg-gray-400 mt-2 mx-auto"></div>
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
@@ -41,12 +41,12 @@ export function CoreValues() {
               onClick={() => setActiveIndex(index)}
               className={`flex flex-col items-center p-6 rounded-xl transition-all ${
                 activeIndex === index 
-                ? 'bg-blue-600 text-white' 
-                : 'bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800'
+                ? 'bg-gray-900 text-white' 
+                : 'bg-gray-300 dark:bg-gray-900 hover:bg-gray-100'
               }`}
             >
-              <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center mb-4">
-                <Check className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 rounded-full bg-gray-400 flex items-center justify-center mb-4">
+                <Check className="w-6 h-6" />
               </div>
               <h3 className="text-lg font-semibold mb-2">{value.title}</h3>
             </button>
