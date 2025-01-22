@@ -23,7 +23,7 @@ export function TechnicalSupport() {
         </span>
         
         <h2 className="text-4xl md:text-5xl font-bold mb-8">
-          Connect With Us for Expert Advice
+          Volta Generators Ouer Support
         </h2>
 
         <MotionDiv
