@@ -52,7 +52,7 @@ export function OurProjects() {
           <div className="h-1 w-24 bg-gray-400 mt-2 mx-auto"></div>
         </h2>
 
-        <div className="max-w-6xl mx-auto relative">
+        <div className="max-w-7xl mx-auto px-6 relative">
           {/* Carousel Container */}
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex">
@@ -77,7 +77,7 @@ export function OurProjects() {
           <Button
             variant="ghost"
             size="icon"
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white/80 dark:bg-gray-800/80 shadow-lg hover:bg-white dark:hover:bg-gray-800 hidden md:flex"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-gray-700 shadow-lg hover:bg-white hidden md:flex"
             onClick={scrollPrev}
           >
             <ChevronLeft className="h-6 w-6" />
@@ -85,7 +85,7 @@ export function OurProjects() {
           <Button
             variant="ghost"
             size="icon"
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white/80 dark:bg-gray-800/80 shadow-lg hover:bg-white dark:hover:bg-gray-800 hidden md:flex"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-gray-700 shadow-lg hover:bg-white hidden md:flex"
             onClick={scrollNext}
           >
             <ChevronRight className="h-6 w-6" />
@@ -98,8 +98,8 @@ export function OurProjects() {
                 key={index}
                 className={`w-3 h-3 md:w-2 md:h-2 rounded-full transition-colors ${
                   index === selectedIndex
-                    ? "bg-blue-600 dark:bg-blue-400"
-                    : "bg-gray-300 dark:bg-gray-600"
+                    ? "bg-gray-700"
+                    : "bg-gray-400"
                 }`}
                 onClick={() => scrollTo(index)}
                 aria-label={`Go to slide ${index + 1}`}

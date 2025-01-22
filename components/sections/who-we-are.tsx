@@ -14,7 +14,7 @@ const stats = [
 export function WhoWeAre() {
   return (
     <section className="w-full py-16 bg-gradient-to-b from-gray-50 to-white text-gray-700">
-      <div className="container mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-6">
         <MotionDiv
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

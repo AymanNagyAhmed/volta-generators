@@ -34,7 +34,7 @@ export function CoreValues() {
           <div className="h-1 w-24 bg-gray-400 mt-2 mx-auto"></div>
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {values.map((value, index) => (
             <button
               key={value.title}
