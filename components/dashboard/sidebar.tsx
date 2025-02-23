@@ -13,10 +13,10 @@ import {
 export function Sidebar() {
   const menuItems = [
     { icon: Home, label: "Overview", href: "/dashboard" },
+    { icon: Settings, label: "Settings", href: "/dashboard/settings" },
     { icon: Users, label: "Users", href: "/dashboard/users" },
     { icon: BarChart, label: "Analytics", href: "/dashboard/analytics" },
     { icon: FileText, label: "Reports", href: "/dashboard/reports" },
-    { icon: Settings, label: "Settings", href: "/dashboard/settings" },
     { icon: HelpCircle, label: "Help", href: "/dashboard/help" },
   ];
 

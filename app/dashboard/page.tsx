@@ -22,22 +22,23 @@ export default function DashboardPage() {
             Welcome to your dashboard
           </p>
         </Card>
-
-        {/* Statistics Card */}
+        {/* Settings Card */}
         <Card className="p-6">
-          <h2 className="text-lg font-semibold mb-2">Statistics</h2>
+          <h2 className="text-lg font-semibold mb-2">Settings</h2>
           <p className="text-gray-600 dark:text-gray-300">
-            Your key metrics and data
+            Manage your site settings
+          </p>
+        </Card>
+        {/* Users Card */}
+        <Card className="p-6">
+          <h2 className="text-lg font-semibold mb-2">Users</h2>
+          <p className="text-gray-600 dark:text-gray-300">
+            Manage your users
           </p>
         </Card>
 
-        {/* Recent Activity Card */}
-        <Card className="p-6">
-          <h2 className="text-lg font-semibold mb-2">Recent Activity</h2>
-          <p className="text-gray-600 dark:text-gray-300">
-            Latest updates and changes
-          </p>
-        </Card>
+
+
       </div>
     </div>
   );
