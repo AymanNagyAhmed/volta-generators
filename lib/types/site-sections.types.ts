@@ -3,10 +3,20 @@ export interface CreateSiteSectionPayload {
   description: string;
 }
 
+export interface SiteSetting {
+  id: string;
+  sectionTitle: string;
+  sectionId: string;
+  key: string;
+  value: string;
+  section: SiteSection;
+}
+
 export interface SiteSection {
   id: string;
   title: string;
   description: string;
+  settings: SiteSetting[];
   createdAt: string;
   updatedAt: string;
 }

@@ -3,7 +3,7 @@ import { SettingsFileUploadPayload, SettingsFileUploadResponse, SettingsMultiple
 import { ApiError } from '../types/response.types';
 
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
 export const settingsService = {
   async uploadSingleFile(payload: SettingsFileUploadPayload): Promise<SettingsFileUploadResponse> {
@@ -18,7 +18,7 @@ export const settingsService = {
     const formData = new FormData();
     formData.append('file', payload.file);
 
-    const response = await fetch(`${API_URL}/settings/upload-single`, {
+    const response = await fetch(`${API_URL}/api/settings/upload-single`, {
       method: 'POST',
       body: formData,
     });
@@ -47,7 +47,7 @@ export const settingsService = {
       formData.append('files', file);
     });
 
-    const response = await fetch(`${API_URL}/settings/upload-multiple`, {
+    const response = await fetch(`${API_URL}/api/settings/upload-multiple`, {
       method: 'POST',
       body: formData,
     });
@@ -71,7 +71,7 @@ export const settingsService = {
 
     try {
 
-    const response = await fetch(`${API_URL}/settings`, {
+    const response = await fetch(`${API_URL}/api/settings`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ export const settingsService = {
   },
 
   async getAllSettings(): Promise<GetAllSettingsResponse> {
-    const response = await fetch(`${API_URL}/settings`, {
+    const response = await fetch(`${API_URL}/api/settings`, {
       method: 'GET',
     });
 
@@ -106,7 +106,7 @@ export const settingsService = {
 
     try {
 
-    const response = await fetch(`${API_URL}/settings/${id}`, {
+    const response = await fetch(`${API_URL}/api/settings/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -133,7 +133,7 @@ export const settingsService = {
 
     try {
 
-    const response = await fetch(`${API_URL}/settings/${id}`, {
+    const response = await fetch(`${API_URL}/api/settings/${id}`, {
       method: 'DELETE',
     });
 

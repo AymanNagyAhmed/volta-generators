@@ -5,7 +5,7 @@ import {
   UserApiError
 } from '@/lib/types/users.types'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 
 export const updateUserProfile = async (userId: number, data: UpdateUserProfileData): Promise<ApiResponse> => {
   const accessToken = Cookies.get('access_token')
@@ -15,7 +15,7 @@ export const updateUserProfile = async (userId: number, data: UpdateUserProfileD
   }
 
   try {
-    const response = await fetch(`${API_URL}/users/${userId}`, {
+    const response = await fetch(`${API_URL}/api/users/${userId}`, {
       method: 'PATCH',
       headers: {
         'Authorization': `Bearer ${accessToken}`,

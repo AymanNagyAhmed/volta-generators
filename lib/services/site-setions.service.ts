@@ -10,7 +10,12 @@ import {
 } from '@/lib/types/site-sections.types'
 import { ApiError } from '@/lib/types/response.types'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+
+const defaultHeaders = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+};
 
 export const createSiteSection = async (payload: CreateSiteSectionPayload): Promise<CreateSiteSectionResult> => {
   const accessToken = Cookies.get('access_token')
@@ -20,7 +25,7 @@ export const createSiteSection = async (payload: CreateSiteSectionPayload): Prom
   }
 
   try {
-    const response = await fetch(`${API_URL}/site-sections`, {
+    const response = await fetch(`${API_URL}/api/site-sections`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -56,11 +61,9 @@ export const createSiteSection = async (payload: CreateSiteSectionPayload): Prom
 
 export const getAllSiteSections = async (): Promise<GetSiteSectionsResult> => {
   try {
-    const response = await fetch(`${API_URL}/site-sections`, {
+    const response = await fetch(`${API_URL}/api/site-sections`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: defaultHeaders,
       credentials: 'include',
     })
 
@@ -90,7 +93,7 @@ export const getAllSiteSections = async (): Promise<GetSiteSectionsResult> => {
 
 export const getSiteSectionById = async (id: string): Promise<GetSiteSectionResult> => {
   try {
-    const response = await fetch(`${API_URL}/site-sections/${id}`, {
+    const response = await fetch(`${API_URL}/api/site-sections/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -130,13 +133,14 @@ export const updateSiteSection = async (id: string, payload: UpdateSiteSectionPa
   }
 
   try {
-    const response = await fetch(`${API_URL}/site-sections/${id}`, {
+    const response = await fetch(`${API_URL}/api/site-sections/${id}`, {
       method: 'PATCH',
       headers: {
-        'Content-Type': 'application/json',
+        ...defaultHeaders,
         'Authorization': `Bearer ${accessToken}`
       },
       body: JSON.stringify(payload),
+      credentials: 'include',
     });
 
     return response.json();
@@ -157,7 +161,7 @@ export const deleteSiteSection = async (id: string): Promise<DeleteSiteSectionRe
   }
 
   try {
-    const response = await fetch(`${API_URL}/site-sections/${id}`, {
+    const response = await fetch(`${API_URL}/api/site-sections/${id}`, {
       method: 'DELETE',
     });
 
