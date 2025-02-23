@@ -10,4 +10,4 @@ export const PageContainer = ({ children }: { children: React.ReactNode }) => {
       </div>
     </div>
   );
-}; 
+};

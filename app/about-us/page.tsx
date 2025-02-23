@@ -1,7 +1,7 @@
 "use client";
 
 import { title } from "@/components/primitives";
-import { PageContainer } from "@/components/layout/page-container";
+import { PageContainer } from "@/components/layouts/page-container";
 
 export default function AboutPage() {
   return (

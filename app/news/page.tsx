@@ -1,4 +1,4 @@
-import { PageContainer } from "@/components/layout/page-container";
+import { PageContainer } from "@/components/layouts/page-container";
 
 export default function NewsPage() {
   return (
