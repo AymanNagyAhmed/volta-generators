@@ -44,16 +44,16 @@ export function OurProjects() {
         const response = await getAllSiteSections();
         
         if ('success' in response && response.success) {
-          // Find the our_products section
-          const ourProductsSection = response.data.find(
-            (section: SiteSection) => section.title === "our_products"
+          // Find the our_projects section (was incorrectly looking for our_products)
+          const ourProjectsSection = response.data.find(
+            (section: SiteSection) => section.title === "our_projects"
           );
           
-          if (ourProductsSection && ourProductsSection.settings) {
-            setProjectsData(ourProductsSection.settings);
+          if (ourProjectsSection && ourProjectsSection.settings) {
+            setProjectsData(ourProjectsSection.settings);
             
             // Find the title setting
-            const titleSetting = ourProductsSection.settings.find(
+            const titleSetting = ourProjectsSection.settings.find(
               setting => setting.key === "title"
             );
             
@@ -98,27 +98,16 @@ export function OurProjects() {
         // Process the image path to ensure it points directly to the backend
         let imagePath = slide.image;
         
-        // Handle different path formats
-        if (!imagePath.startsWith('/')) {
-          // If it doesn't start with /, add /
-          imagePath = '/' + imagePath;
-        }
-        
-        // If it doesn't start with /public/ and it's not an absolute URL, add /public
-        if (!imagePath.startsWith('/public/') && !imagePath.startsWith('http')) {
-          imagePath = '/public' + imagePath;
-        }
-        
         // If it's a relative path, prepend the API URL
-        if (!imagePath.startsWith('http')) {
+        if (imagePath && !imagePath.startsWith('http')) {
           imagePath = `${apiUrl}${imagePath}`;
         }
         
         return {
           id: index + 1,
           src: imagePath,
-          alt: slide.title || `Project ${index + 1}`,
-          title: slide.title,
+          alt: slide.title || slide.description || `Project ${index + 1}`,
+          title: slide.title || `Project ${index + 1}`,
           description: slide.description
         };
       });
@@ -223,7 +212,7 @@ export function OurProjects() {
           <Button
             variant="ghost"
             size="icon"
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-gray-700 shadow-lg hover:bg-white hidden md:flex"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-gray-700 shadow-lg hover:bg-white text-white hover:text-gray-700 hidden md:flex"
             onClick={scrollPrev}
           >
             <ChevronLeft className="h-6 w-6" />
@@ -231,7 +220,7 @@ export function OurProjects() {
           <Button
             variant="ghost"
             size="icon"
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-gray-700 shadow-lg hover:bg-white hidden md:flex"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-gray-700 shadow-lg hover:bg-white text-white hover:text-gray-700 hidden md:flex"
             onClick={scrollNext}
           >
             <ChevronRight className="h-6 w-6" />

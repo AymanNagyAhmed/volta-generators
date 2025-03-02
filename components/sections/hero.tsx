@@ -273,7 +273,7 @@ export const Hero = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white/50 dark:bg-gray-800/50 shadow-lg hover:bg-white/70 dark:hover:bg-gray-800/70 hidden md:flex"
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-gray-700 shadow-lg hover:bg-white text-white hover:text-gray-700 hidden md:flex"
                 onClick={scrollPrev}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
@@ -283,7 +283,7 @@ export const Hero = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white/50 dark:bg-gray-800/50 shadow-lg hover:bg-white/70 dark:hover:bg-gray-800/70 hidden md:flex"
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-gray-700 shadow-lg hover:bg-white text-white hover:text-gray-700 hidden md:flex"
                 onClick={scrollNext}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
