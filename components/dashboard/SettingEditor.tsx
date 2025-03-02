@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button, Input } from "@nextui-org/react";
 import { Plus, X } from "lucide-react";
-import { SliderImage, EditableSliderImage, FAQItem, EditableFAQItem, ReasonItem, EditableReasonItem, ContactInfo } from "../types";
+import { SliderImage, EditableSliderImage, FAQItem, EditableFAQItem, ReasonItem, EditableReasonItem, ContactInfo } from "../../app/dashboard/settings/types";
 
 interface SettingEditorProps {
   type: "text" | "slider" | "faq" | "reason" | "contact";

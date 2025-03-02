@@ -1,7 +1,7 @@
 "use client";
 
 import { SiteSetting } from "@/lib/types/site-sections.types";
-import { SliderImage, FAQItem, ReasonItem } from "../types";
+import { SliderImage, FAQItem, ReasonItem } from "../../app/dashboard/settings/types";
 
 interface SettingDisplayProps {
   setting: SiteSetting;

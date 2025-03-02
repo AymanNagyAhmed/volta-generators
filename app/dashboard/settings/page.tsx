@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 import { Card, Spinner, Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/react";
 import { title } from "@/components/primitives";
-import { getAllSiteSections } from "@/lib/services/site-setions.service";
+import { getAllSiteSections } from "@/lib/services/site-sections.service";
 import { settingsService } from "@/lib/services/settings.service";
 import { Pencil, Trash2 } from "lucide-react";
 import type { SiteSection, SiteSetting } from "@/lib/types/site-sections.types";
-import { SettingDisplay } from "./components/SettingDisplay";
-import { SettingEditor } from "./components/SettingEditor";
+import { SettingDisplay } from "../../../components/dashboard/SettingDisplay";
+import { SettingEditor } from "../../../components/dashboard/SettingEditor";
 import { EditableSliderImage, EditableFAQItem, EditableReasonItem, ContactInfo } from "./types";
 
 export default function SettingsPage() {
