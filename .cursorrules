@@ -284,3 +284,144 @@ Extra Components:
   const MotionDiv = motion.div as any;
 - Usage: Replace motion.div with MotionDiv to resolve className type errors
 - Note: This is a temporary solution until better typing is available
+
+
+
+// Settings Data Type Handling Rules
+
+// Settings Value Types
+Different setting value types should be handled appropriately:
+1. Slider Images:
+   - Structure: Array of {description: string, image: string}
+   - Display: Grid of images with descriptions
+   - Edit: Form with image URL and description fields
+   - Preview: Show image with description
+
+2. FAQs:
+   - Structure: Array of {question: string, answer: string}
+   - Display: List of expandable Q&A items
+   - Edit: Form with question and answer fields
+   - Order: Maintain question order
+
+3. Reasons:
+   - Structure: Array of {reason_id: number, title: string, description: string}
+   - Display: Grid of reason cards with badges
+   - Edit: Form with title, description, and order fields
+   - Order: Use reason_id for display order
+
+4. Menu Items:
+   - Structure: Array of strings
+   - Display: Comma-separated list
+   - Edit: Simple text input
+   - Order: Maintain array order
+
+// ID Management Rules
+- Use separate ID counters for different content types
+- Example state variables:
+  - nextImageId for slider images
+  - nextFAQId for FAQs
+  - nextReasonId for reasons
+- Reset counters when opening edit modal
+- Increment counters when adding new items
+
+// Order Management Rules
+For ordered content (like reasons):
+- Use a separate order field (e.g., reason_id)
+- Maintain sequential order after deletions
+- Allow manual order changes
+- Handle order conflicts by shifting other items
+
+// Display Rules
+1. Images:
+  - Use responsive grid layout
+  - Show preview when URL is valid
+  - Include hover effects
+  - Display description below image
+
+2. FAQs:
+  - Stack questions vertically
+  - Show full question and answer
+  - Allow expanding/collapsing
+
+3. Reasons:
+  - Use card layout with consistent height
+  - Show order badge
+  - Display title prominently
+  - Show description below title
+
+// Edit Modal Rules
+1. Common Features:
+  - Full-height modal (90vh)
+  - Scrollable content
+  - Save/Cancel buttons
+  - Add new item button
+
+2. Form Layout:
+  - Group related fields
+  - Show delete button for each item
+  - Include order controls where needed
+  - Preview content when possible
+
+// State Management Rules
+1. Initialize State:
+  - Parse JSON content safely
+  - Handle empty or invalid JSON
+  - Set appropriate initial values
+  - Reset state when closing modal
+
+2. Update State:
+  - Maintain item order
+  - Update IDs properly
+  - Handle deletions correctly
+  - Validate input values
+
+3. Save State:
+  - Remove internal fields (id, isNew)
+  - Maintain order in saved data
+  - Validate before saving
+  - Handle save errors
+
+// Error Handling Rules
+1. JSON Parsing:
+  - Try-catch around JSON.parse
+  - Fallback to simple input for invalid JSON
+  - Clear error messages
+  - Maintain existing data on error
+
+2. Input Validation:
+  - Required fields
+  - URL validation for images
+  - Order number validation
+  - Duplicate check for orders
+
+// Component Structure Rules
+1. Main Components:
+  - Settings list view
+  - Edit modal
+  - Type-specific editors
+  - Preview components
+
+2. Reusable Parts:
+  - Input fields
+  - Delete buttons
+  - Order controls
+  - Add buttons
+
+// Best Practices
+1. User Experience:
+  - Clear feedback on actions
+  - Smooth transitions
+  - Responsive layout
+  - Intuitive controls
+
+2. Performance:
+  - Optimize re-renders
+  - Handle large datasets
+  - Lazy load images
+  - Debounce input handlers
+
+3. Accessibility:
+  - Proper ARIA labels
+  - Keyboard navigation
+  - Focus management
+  - Screen reader support

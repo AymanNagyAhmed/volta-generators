@@ -1,12 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Card, Spinner, Button, Input, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/react";
+import { Card, Spinner, Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/react";
 import { title } from "@/components/primitives";
 import { getAllSiteSections } from "@/lib/services/site-setions.service";
 import { settingsService } from "@/lib/services/settings.service";
 import { Pencil, Trash2 } from "lucide-react";
 import type { SiteSection, SiteSetting } from "@/lib/types/site-sections.types";
+import { SettingDisplay } from "./components/SettingDisplay";
+import { SettingEditor } from "./components/SettingEditor";
+import { EditableSliderImage, EditableFAQItem, EditableReasonItem, ContactInfo } from "./types";
 
 export default function SettingsPage() {
   const [sections, setSections] = useState<SiteSection[]>([]);
@@ -15,13 +18,20 @@ export default function SettingsPage() {
   const [editModal, setEditModal] = useState(false);
   const [selectedSetting, setSelectedSetting] = useState<SiteSetting | null>(null);
   const [editValue, setEditValue] = useState("");
+  const [editableImages, setEditableImages] = useState<EditableSliderImage[]>([]);
+  const [nextImageId, setNextImageId] = useState(0);
+  const [editableFAQs, setEditableFAQs] = useState<EditableFAQItem[]>([]);
+  const [editableReasons, setEditableReasons] = useState<EditableReasonItem[]>([]);
+  const [nextReasonId, setNextReasonId] = useState(0);
+  const [nextFAQId, setNextFAQId] = useState(0);
+  const [editableContactInfo, setEditableContactInfo] = useState<ContactInfo | null>(null);
+  const [editorType, setEditorType] = useState<"text" | "slider" | "faq" | "reason" | "contact">("text");
 
   useEffect(() => {
     const fetchSections = async () => {
       try {
         const response = await getAllSiteSections();
         if ('data' in response) {
-          console.log('response', response.data);
           setSections(response.data);
         } else {
           setError(response.message);
@@ -39,6 +49,56 @@ export default function SettingsPage() {
   const handleEditSetting = async (setting: SiteSetting) => {
     setSelectedSetting(setting);
     setEditValue(setting.value);
+    
+    // Reset all editable states
+    setEditableImages([]);
+    setEditableFAQs([]);
+    setEditableReasons([]);
+    setEditableContactInfo(null);
+    setNextImageId(0);
+    setNextFAQId(0);
+    setNextReasonId(0);
+    
+    try {
+      const parsedValue = JSON.parse(setting.value);
+      if (Array.isArray(parsedValue)) {
+        if (parsedValue[0]?.image) {
+          const images = parsedValue.map((item, index) => ({
+            ...item,
+            id: index
+          }));
+          setEditableImages(images);
+          setNextImageId(Math.max(...images.map(img => img.id)) + 1);
+          setEditorType("slider");
+        } else if (parsedValue[0]?.question) {
+          const faqs = parsedValue.map((item, index) => ({
+            ...item,
+            id: index
+          }));
+          setEditableFAQs(faqs);
+          setNextFAQId(Math.max(...faqs.map(faq => faq.id)) + 1);
+          setEditorType("faq");
+        } else if (parsedValue[0]?.reason_id) {
+          const reasons = parsedValue.map((item, index) => ({
+            ...item,
+            id: index
+          }));
+          setEditableReasons(reasons);
+          setNextReasonId(Math.max(...reasons.map(reason => reason.id)) + 1);
+          setEditorType("reason");
+        } else {
+          setEditorType("text");
+        }
+      } else if (parsedValue && typeof parsedValue === 'object' && parsedValue.email) {
+        setEditableContactInfo(parsedValue);
+        setEditorType("contact");
+      } else {
+        setEditorType("text");
+      }
+    } catch {
+      setEditorType("text");
+    }
+    
     setEditModal(true);
   };
 
@@ -46,17 +106,34 @@ export default function SettingsPage() {
     if (!selectedSetting) return;
 
     try {
+      let valueToSave = editValue;
+      
+      if (editorType === "slider" && editableImages.length > 0) {
+        valueToSave = JSON.stringify(
+          editableImages.map(({ id, isNew, ...rest }) => rest)
+        );
+      } else if (editorType === "faq" && editableFAQs.length > 0) {
+        valueToSave = JSON.stringify(
+          editableFAQs.map(({ id, isNew, ...rest }) => rest)
+        );
+      } else if (editorType === "reason" && editableReasons.length > 0) {
+        valueToSave = JSON.stringify(
+          editableReasons.map(({ id, isNew, ...rest }) => rest)
+        );
+      } else if (editorType === "contact" && editableContactInfo) {
+        valueToSave = JSON.stringify(editableContactInfo);
+      }
+
       const response = await settingsService.updateSetting(selectedSetting.id, {
-        value: editValue
+        value: valueToSave
       });
 
       if (response.success) {
-        // Update the local state
         setSections(sections.map(section => ({
           ...section,
           settings: section.settings.map(setting => 
             setting.id === selectedSetting.id 
-              ? { ...setting, value: editValue }
+              ? { ...setting, value: valueToSave }
               : setting
           )
         })));
@@ -76,7 +153,6 @@ export default function SettingsPage() {
       const response = await settingsService.deleteSetting(setting.id);
 
       if (response.success) {
-        // Update the local state
         setSections(sections.map(section => ({
           ...section,
           settings: section.settings.filter(s => s.id !== setting.id)
@@ -143,27 +219,12 @@ export default function SettingsPage() {
                           >
                             <Pencil size={16} />
                           </button>
-                          <button
-                            className="p-2 hover:bg-gray-100 rounded-full text-red-600"
-                            onClick={() => handleDeleteSetting(setting)}
-                          >
+                          {/* <button className="p-2 hover:bg-gray-100 rounded-full text-red-600" onClick={() => handleDeleteSetting(setting)} >
                             <Trash2 size={16} />
-                          </button>
+                          </button> */}
                         </div>
                       </div>
-                      {setting.value.startsWith('/') ? (
-                        <img
-                          src={`${process.env.NEXT_PUBLIC_API_URL}${setting.value}`}
-                          alt={setting.key}
-                          className="h-20 w-auto object-contain"
-                        />
-                      ) : (
-                        <span className="text-sm break-words">
-                          {setting.key === 'menu_items' 
-                            ? JSON.parse(setting.value).join(', ')
-                            : setting.value}
-                        </span>
-                      )}
+                      <SettingDisplay setting={setting} />
                     </div>
                   ))}
                 </div>
@@ -184,18 +245,34 @@ export default function SettingsPage() {
         <Modal 
           isOpen={editModal} 
           onOpenChange={(open) => setEditModal(open)}
+          size="3xl"
+          className="h-[90vh]"
         >
-          <ModalContent>
+          <ModalContent className="h-full">
             <ModalHeader>
               <h3 className="text-lg font-semibold">
                 Edit {selectedSetting?.key.replace(/_/g, ' ')}
               </h3>
             </ModalHeader>
-            <ModalBody>
-              <Input
+            <ModalBody className="overflow-y-auto">
+              <SettingEditor
+                type={editorType}
                 value={editValue}
-                onChange={(e) => setEditValue(e.target.value)}
-                placeholder="Enter new value"
+                onChange={setEditValue}
+                editableImages={editableImages}
+                setEditableImages={setEditableImages}
+                editableFAQs={editableFAQs}
+                setEditableFAQs={setEditableFAQs}
+                editableReasons={editableReasons}
+                setEditableReasons={setEditableReasons}
+                editableContactInfo={editableContactInfo}
+                setEditableContactInfo={setEditableContactInfo}
+                nextImageId={nextImageId}
+                setNextImageId={setNextImageId}
+                nextFAQId={nextFAQId}
+                setNextFAQId={setNextFAQId}
+                nextReasonId={nextReasonId}
+                setNextReasonId={setNextReasonId}
               />
             </ModalBody>
             <ModalFooter>
