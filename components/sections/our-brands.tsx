@@ -1,10 +1,20 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef, useMemo } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import { getAllSiteSections } from "@/lib/services/site-sections.service";
+import { SiteSection, SiteSetting } from "@/lib/types/site-sections.types";
+
+// Define the brand item interface
+interface BrandItem {
+  id: number;
+  name: string;
+  logo: string;
+  description?: string;
+}
 
 export function OurBrands() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ 
@@ -18,15 +28,116 @@ export function OurBrands() {
       '(min-width: 1024px)': { slidesToScroll: 3 },
     }
   });
+
+  // State management
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
   const [isHovered, setIsHovered] = useState(false);
+  const [brandsData, setBrandsData] = useState<SiteSetting[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [sectionTitle, setSectionTitle] = useState("OUR BRANDS");
   
   // Use useRef instead of useState for the interval
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Autoplay configuration
   const AUTOPLAY_INTERVAL = 5000;
+
+  // Fetch brands data from API
+  useEffect(() => {
+    const fetchBrandsData = async () => {
+      try {
+        setIsLoading(true);
+        const response = await getAllSiteSections();
+        
+        if ('success' in response && response.success) {
+          // Find the our_brands section
+          const ourBrandsSection = response.data.find(
+            (section: SiteSection) => section.title === "our_brands"
+          );
+          
+          if (ourBrandsSection && ourBrandsSection.settings) {
+            setBrandsData(ourBrandsSection.settings);
+            
+            // Find the title setting
+            const titleSetting = ourBrandsSection.settings.find(
+              setting => setting.key === "title"
+            );
+            
+            if (titleSetting) {
+              setSectionTitle(titleSetting.value);
+            }
+          } else {
+            setError("Brands data not found");
+          }
+        } else {
+          setError("Failed to fetch brands data");
+        }
+      } catch (err) {
+        console.error("Error fetching brands data:", err);
+        setError("Error loading brands data");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchBrandsData();
+  }, []);
+
+  // Process brands data into a format suitable for display
+  const processedBrandsData = useMemo(() => {
+    try {
+      // Find the setting with key "brands"
+      const brandsSetting = brandsData.find(setting => setting.key === "brands");
+      
+      if (!brandsSetting) {
+        return [];
+      }
+      
+      // Parse the JSON string value
+      const brandsArray = JSON.parse(brandsSetting.value);
+      
+      // Get the API URL from environment variables
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+      
+      // Map the parsed data to the format expected by the component
+      const processedBrands = brandsArray
+        .filter((brand: any) => brand.image && brand.image.trim() !== "") // Filter out brands with empty image paths
+        .map((brand: any, index: number) => {
+          // Process the image path to ensure it points directly to the backend
+          let imagePath = brand.image;
+          
+          // Handle different path formats
+          if (!imagePath.startsWith('/')) {
+            // If it doesn't start with /, add /
+            imagePath = '/' + imagePath;
+          }
+          
+          // If it doesn't start with /public/ and it's not an absolute URL, add /public
+          if (!imagePath.startsWith('/public/') && !imagePath.startsWith('http')) {
+            imagePath = '/public' + imagePath;
+          }
+          
+          // If it's a relative path, prepend the API URL
+          if (!imagePath.startsWith('http')) {
+            imagePath = `${apiUrl}${imagePath}`;
+          }
+          
+          return {
+            id: index + 1,
+            name: brand.name || `Brand ${index + 1}`,
+            logo: imagePath,
+            description: brand.description
+          };
+        });
+      
+      return processedBrands;
+    } catch (err) {
+      console.error("Error processing brands data:", err);
+      return [];
+    }
+  }, [brandsData]);
 
   const clearAutoplay = useCallback(() => {
     if (autoplayIntervalRef.current) {
@@ -92,7 +203,8 @@ export function OurBrands() {
     startAutoplay();
   }, [startAutoplay]);
 
-  const brands = [
+  // Fallback data in case API data is not available
+  const fallbackBrands: BrandItem[] = [
     {
       id: 1,
       name: "Leroy Somer",
@@ -140,11 +252,34 @@ export function OurBrands() {
     },
   ];
 
+  // Determine which data to display
+  const displayData = processedBrandsData.length > 0 ? processedBrandsData : fallbackBrands;
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <section className="w-full py-16 bg-gray-50 dark:bg-gray-900">
+        <div className="container mx-auto px-4 flex items-center justify-center h-[200px]">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mx-auto mb-4"></div>
+            <p className="text-gray-600 dark:text-gray-300">Loading brands...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Error state
+  if (error && processedBrandsData.length === 0) {
+    console.warn("Using fallback data due to error:", error);
+    // Continue with fallback data
+  }
+
   return (
     <section className="w-full py-16 bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-12 text-gray-800 dark:text-gray-100">
-          OUR BRANDS
+          {sectionTitle}
           <div className="h-1 w-24 bg-gray-400 mt-2 mx-auto"></div>
         </h2>
 
@@ -157,7 +292,7 @@ export function OurBrands() {
             onMouseLeave={handleMouseLeave}
           >
             <div className="flex">
-              {brands.map((brand) => (
+              {displayData.map((brand: BrandItem) => (
                 <div
                   key={brand.id}
                   className="flex-[0_0_100%] md:flex-[0_0_33.33%] lg:flex-[0_0_20%] min-w-0 pl-4 relative"
@@ -170,6 +305,7 @@ export function OurBrands() {
                         width={100}
                         height={100}
                         className="object-contain w-auto h-auto"
+                        unoptimized={true}
                       />
                     </div>
                   </div>
