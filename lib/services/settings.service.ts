@@ -14,22 +14,35 @@ export const settingsService = {
     }
 
     try {
+      const formData = new FormData();
+      formData.append('file', payload.file);
 
-    const formData = new FormData();
-    formData.append('file', payload.file);
+      const response = await fetch(`${API_URL}/api/settings/upload-single`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        },
+        credentials: 'include',
+        body: formData,
+      });
 
-    const response = await fetch(`${API_URL}/api/settings/upload-single`, {
-      method: 'POST',
-      body: formData,
-    });
+      const data = await response.json();
 
-      return response.json();
-    } catch (error) {
-      console.error('Error in uploadSingleFile:', error)
-      if (error instanceof ApiError) {
-        throw error
+      if (!response.ok) {
+        throw new ApiError(
+          data.message || 'Failed to upload file',
+          response.status,
+          '/settings/upload-single'
+        );
       }
-      throw new ApiError('Network error', 500, '/settings/upload-single')
+
+      return data;
+    } catch (error) {
+      console.error('Error in uploadSingleFile:', error);
+      if (error instanceof ApiError) {
+        throw error;
+      }
+      throw new ApiError('Failed to upload file. Please try again.', 500, '/settings/upload-single');
     }
   },
 
@@ -41,24 +54,37 @@ export const settingsService = {
     }
 
     try {
+      const formData = new FormData();
+      payload.files.forEach((file) => {
+        formData.append('files', file);
+      });
 
-    const formData = new FormData();
-    payload.files.forEach((file) => {
-      formData.append('files', file);
-    });
+      const response = await fetch(`${API_URL}/api/settings/upload-multiple`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        },
+        credentials: 'include',
+        body: formData,
+      });
 
-    const response = await fetch(`${API_URL}/api/settings/upload-multiple`, {
-      method: 'POST',
-      body: formData,
-    });
+      const data = await response.json();
 
-      return response.json();
-    } catch (error) {
-      console.error('Error in uploadMultipleFiles:', error)
-      if (error instanceof ApiError) {
-        throw error
+      if (!response.ok) {
+        throw new ApiError(
+          data.message || 'Failed to upload files',
+          response.status,
+          '/settings/upload-multiple'
+        );
       }
-      throw new ApiError('Network error', 500, '/settings/upload-multiple')
+
+      return data;
+    } catch (error) {
+      console.error('Error in uploadMultipleFiles:', error);
+      if (error instanceof ApiError) {
+        throw error;
+      }
+      throw new ApiError('Failed to upload files. Please try again.', 500, '/settings/upload-multiple');
     }
   },
 
@@ -70,31 +96,60 @@ export const settingsService = {
     }
 
     try {
+      const response = await fetch(`${API_URL}/api/settings`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
+        credentials: 'include',
+        body: JSON.stringify(payload),
+      });
 
-    const response = await fetch(`${API_URL}/api/settings`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
+      const data = await response.json();
 
-      return response.json();
-    } catch (error) {
-      console.error('Error in createSetting:', error)
-      if (error instanceof ApiError) {
-        throw error
+      if (!response.ok) {
+        throw new ApiError(
+          data.message || 'Failed to create setting',
+          response.status,
+          '/settings'
+        );
       }
-      throw new ApiError('Network error', 500, '/settings')
+
+      return data;
+    } catch (error) {
+      console.error('Error in createSetting:', error);
+      if (error instanceof ApiError) {
+        throw error;
+      }
+      throw new ApiError('Failed to create setting. Please try again.', 500, '/settings');
     }
   },
 
   async getAllSettings(): Promise<GetAllSettingsResponse> {
-    const response = await fetch(`${API_URL}/api/settings`, {
-      method: 'GET',
-    });
+    try {
+      const response = await fetch(`${API_URL}/api/settings`, {
+        method: 'GET',
+      });
 
-    return response.json();
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new ApiError(
+          data.message || 'Failed to fetch settings',
+          response.status,
+          '/settings'
+        );
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Error in getAllSettings:', error);
+      if (error instanceof ApiError) {
+        throw error;
+      }
+      throw new ApiError('Failed to fetch settings. Please try again.', 500, '/settings');
+    }
   },
 
   async updateSetting(id: string, payload: UpdateSettingPayload): Promise<UpdateSettingResponse> {
@@ -105,22 +160,33 @@ export const settingsService = {
     }
 
     try {
+      const response = await fetch(`${API_URL}/api/settings/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
+        credentials: 'include',
+        body: JSON.stringify(payload),
+      });
 
-    const response = await fetch(`${API_URL}/api/settings/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
+      const data = await response.json();
 
-      return response.json();
-    } catch (error) {
-      console.error('Error in updateSetting:', error)
-      if (error instanceof ApiError) {
-        throw error
+      if (!response.ok) {
+        throw new ApiError(
+          data.message || 'Failed to update setting',
+          response.status,
+          '/settings'
+        );
       }
-      throw new ApiError('Network error', 500, '/settings')
+
+      return data;
+    } catch (error) {
+      console.error('Error in updateSetting:', error);
+      if (error instanceof ApiError) {
+        throw error;
+      }
+      throw new ApiError('Failed to update setting. Please try again.', 500, '/settings');
     }
   },
 
@@ -132,18 +198,32 @@ export const settingsService = {
     }
 
     try {
+      const response = await fetch(`${API_URL}/api/settings/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
+        credentials: 'include',
+      });
 
-    const response = await fetch(`${API_URL}/api/settings/${id}`, {
-      method: 'DELETE',
-    });
+      const data = await response.json();
 
-    return response.json();
-    } catch (error) {
-      console.error('Error in deleteSetting:', error)
-      if (error instanceof ApiError) {
-        throw error
+      if (!response.ok) {
+        throw new ApiError(
+          data.message || 'Failed to delete setting',
+          response.status,
+          '/settings'
+        );
       }
-      throw new ApiError('Network error', 500, '/settings')
+
+      return data;
+    } catch (error) {
+      console.error('Error in deleteSetting:', error);
+      if (error instanceof ApiError) {
+        throw error;
+      }
+      throw new ApiError('Failed to delete setting. Please try again.', 500, '/settings');
     }
   },
 };

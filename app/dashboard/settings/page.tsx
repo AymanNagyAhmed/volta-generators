@@ -111,22 +111,39 @@ export default function SettingsPage() {
     if (!selectedSetting) return;
 
     try {
-      let valueToSave = editValue;
+      let valueToSave = editValue.trim();
       
       if (editorType === "slider" && editableImages.length > 0) {
-        valueToSave = JSON.stringify(
-          editableImages.map(({ id, isNew, ...rest }) => rest)
-        );
+        // Trim all string values in images
+        const trimmedImages = editableImages.map(({ id, isNew, ...rest }) => ({
+          ...rest,
+          description: rest.description.trim(),
+          image: rest.image.trim()
+        }));
+        valueToSave = JSON.stringify(trimmedImages);
       } else if (editorType === "faq" && editableFAQs.length > 0) {
-        valueToSave = JSON.stringify(
-          editableFAQs.map(({ id, isNew, ...rest }) => rest)
-        );
+        // Trim questions and answers
+        const trimmedFAQs = editableFAQs.map(({ id, isNew, ...rest }) => ({
+          ...rest,
+          question: rest.question.trim(),
+          answer: rest.answer.trim()
+        }));
+        valueToSave = JSON.stringify(trimmedFAQs);
       } else if (editorType === "reason" && editableReasons.length > 0) {
-        valueToSave = JSON.stringify(
-          editableReasons.map(({ id, isNew, ...rest }) => rest)
-        );
+        // Trim title and description
+        const trimmedReasons = editableReasons.map(({ id, isNew, ...rest }) => ({
+          ...rest,
+          title: rest.title.trim(),
+          description: rest.description.trim()
+        }));
+        valueToSave = JSON.stringify(trimmedReasons);
       } else if (editorType === "contact" && editableContactInfo) {
-        valueToSave = JSON.stringify(editableContactInfo);
+        // Trim all contact info fields
+        const trimmedContact = Object.entries(editableContactInfo).reduce((acc, [key, value]) => ({
+          ...acc,
+          [key]: typeof value === 'string' ? value.trim() : value
+        }), {});
+        valueToSave = JSON.stringify(trimmedContact);
       }
 
       const response = await settingsService.updateSetting(selectedSetting.id, {

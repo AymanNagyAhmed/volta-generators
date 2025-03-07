@@ -19,9 +19,16 @@ export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    
+    // Trim whitespace for email and password fields
+    const trimmedValue = ['email', 'password', 'confirmPassword'].includes(name) 
+      ? value.trim() 
+      : value;
+    
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: trimmedValue
     });
   };
 
@@ -29,15 +36,22 @@ export default function RegisterPage() {
     e.preventDefault();
     setError(null);
     
+    // Ensure all fields are trimmed before submission
+    const trimmedFormData = {
+      email: formData.email.trim(),
+      password: formData.password.trim(),
+      confirmPassword: formData.confirmPassword.trim()
+    };
+    
     // Basic validation
-    if (formData.password !== formData.confirmPassword) {
+    if (trimmedFormData.password !== trimmedFormData.confirmPassword) {
       setError("Passwords do not match");
       return;
     }
     
     try {
       setIsLoading(true);
-      const response = await registerUser(formData);
+      const response = await registerUser(trimmedFormData);
       
       if (response.success) {
         // Redirect to login page with success parameter
@@ -75,6 +89,7 @@ export default function RegisterPage() {
             onChange={handleChange}
             required
             className="w-full"
+            placeholder="Enter your email"
           />
           
           <Input
@@ -85,6 +100,7 @@ export default function RegisterPage() {
             onChange={handleChange}
             required
             className="w-full"
+            placeholder="Enter your password"
           />
           
           <Input
@@ -95,6 +111,7 @@ export default function RegisterPage() {
             onChange={handleChange}
             required
             className="w-full"
+            placeholder="Confirm your password"
           />
           
           <Button

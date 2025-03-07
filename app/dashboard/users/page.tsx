@@ -38,7 +38,7 @@ export default function DashboardUsersPage() {
   });
   const [editFormData, setEditFormData] = useState<Partial<User>>({
     email: "",
-    role: "user" as 'user' | 'admin' | 'manager',
+    role: "user" as 'user' | 'admin',
     fullName: ""
   });
 
@@ -98,7 +98,13 @@ export default function DashboardUsersPage() {
     
     try {
       setLoading(true);
-      await updateUser(selectedUser.id, editFormData);
+      // Only include non-null and non-undefined values
+      const updateData = {
+        ...(editFormData.email && { email: editFormData.email }),
+        ...(editFormData.fullName && { fullName: editFormData.fullName }),
+        ...(editFormData.role && { role: editFormData.role })
+      };
+      await updateUser(selectedUser.id, updateData);
       setIsEditModalOpen(false);
       fetchUsers();
     } catch (err: any) {
@@ -217,8 +223,8 @@ export default function DashboardUsersPage() {
         <div className="p-6 bg-red-100 border border-red-400 text-red-700 rounded max-w-md text-center">
           <h2 className="text-xl font-bold mb-2">Not Authorized</h2>
           <p>You do not have permission to access this page. Admin role is required.</p>
-          <button 
-            onClick={() => router.push("/profile")}
+          <button
+            onClick={() => router.push("/")}
             className="mt-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
           >
             Go to Profile
@@ -237,7 +243,8 @@ export default function DashboardUsersPage() {
             onClick={() => router.push("/dashboard")}
             className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
           </button>
@@ -268,7 +275,7 @@ export default function DashboardUsersPage() {
             <p>Loading users...</p>
           </div>
         ) : (
-          <Table 
+          <Table
             aria-label="Users table"
             sortDescriptor={sortDescriptor}
             onSortChange={handleSortChange}
@@ -298,7 +305,7 @@ export default function DashboardUsersPage() {
                     <TableCell>{user.fullName || "—"}</TableCell>
                     <TableCell>
                       <Chip
-                        color={user.role === 'admin' ? "primary" : user.role === 'manager' ? "secondary" : "default"}
+                        color={user.role === 'admin' ? "primary" : "default"}
                         variant="flat"
                       >
                         {user.role}
@@ -397,7 +404,7 @@ export default function DashboardUsersPage() {
               </DropdownTrigger>
               <DropdownMenu 
                 aria-label="Role selection"
-                onAction={(key) => setEditFormData({...editFormData, role: key as 'user' | 'admin' | 'manager'})}
+                onAction={(key) => setEditFormData({...editFormData, role: key as 'user' | 'admin'})}
               >
                 <DropdownItem key="user">User</DropdownItem>
                 <DropdownItem key="admin">Admin</DropdownItem>

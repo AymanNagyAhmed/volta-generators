@@ -5,7 +5,7 @@ export interface CreateUserPayload {
 
 export interface User {
   id: string;
-  role: 'user' | 'admin' | 'manager';
+  role: 'user' | 'admin';
   email: string;
   fullName: string | null;
   phoneNumber: string | null;
@@ -37,11 +37,12 @@ export type CreateUserResult = CreateUserResponse | ApiErrorResponse;
 
 // Additional types needed for updateUserProfile
 export interface UpdateUserProfileData {
-  fullName: string;
-  email: string;
-  phoneNumber: string;
-  dateOfBirth: string;
-  password: string;
+  fullName?: string;
+  email?: string;
+  phoneNumber?: string;
+  dateOfBirth?: string;
+  password?: string;
+  role?: 'user' | 'admin';
 }
 
 export class UserApiError extends Error {

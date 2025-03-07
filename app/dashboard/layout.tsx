@@ -1,6 +1,7 @@
 "use client";
 
 import { Sidebar } from "@/components/dashboard/sidebar";
+import { Toaster } from "sonner";
 
 export default function DashboardLayout({
   children,
@@ -18,6 +19,15 @@ export default function DashboardLayout({
           {children}
         </div>
       </main>
+
+      {/* Toast Container */}
+      <Toaster 
+        richColors 
+        position="top-right" 
+        closeButton
+        theme="dark"
+        style={{ zIndex: 1000 }}
+      />
     </div>
   );
 } 

@@ -47,13 +47,13 @@ export function middleware(request: NextRequest) {
   }
   
   if (isAuthenticated && (path === '/login' || path === '/register')) {
-    // Redirect to profile if trying to access login/register while already authenticated
-    return NextResponse.redirect(new URL('/profile', request.url))
+    // Redirect to home if trying to access login/register while already authenticated
+    return NextResponse.redirect(new URL('/', request.url))
   }
   
   if (isAdminPath && !isAdmin) {
-    // Redirect to profile if trying to access admin routes without admin role
-    return NextResponse.redirect(new URL('/profile', request.url))
+    // Redirect to home if trying to access admin routes without admin role
+    return NextResponse.redirect(new URL('/', request.url))
   }
   
   return NextResponse.next()

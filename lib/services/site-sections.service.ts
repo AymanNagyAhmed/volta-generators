@@ -28,7 +28,7 @@ export const createSiteSection = async (payload: CreateSiteSectionPayload): Prom
     const response = await fetch(`${API_URL}/api/site-sections`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        ...defaultHeaders,
         'Authorization': `Bearer ${accessToken}`
       },
       body: JSON.stringify(payload),
@@ -95,9 +95,7 @@ export const getSiteSectionById = async (id: string): Promise<GetSiteSectionResu
   try {
     const response = await fetch(`${API_URL}/api/site-sections/${id}`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: defaultHeaders,
       credentials: 'include',
     })
 
@@ -163,6 +161,11 @@ export const deleteSiteSection = async (id: string): Promise<DeleteSiteSectionRe
   try {
     const response = await fetch(`${API_URL}/api/site-sections/${id}`, {
       method: 'DELETE',
+      headers: {
+        ...defaultHeaders,
+        'Authorization': `Bearer ${accessToken}`
+      },
+      credentials: 'include',
     });
 
     const responseData: DeleteSiteSectionResponse = await response.json()

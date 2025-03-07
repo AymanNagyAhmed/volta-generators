@@ -28,9 +28,14 @@ export default function LoginPage() {
   }, [searchParams]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    
+    // Trim whitespace for email and password fields
+    const trimmedValue = name === 'email' || name === 'password' ? value.trim() : value;
+    
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: trimmedValue
     });
   };
 
@@ -38,9 +43,15 @@ export default function LoginPage() {
     e.preventDefault();
     setError(null);
     
+    // Ensure email and password are trimmed before submission
+    const trimmedFormData = {
+      email: formData.email.trim(),
+      password: formData.password.trim()
+    };
+    
     try {
       setIsLoading(true);
-      const response = await loginUser(formData);
+      const response = await loginUser(trimmedFormData);
       
       if (response.success) {
         // Login successful - cookies are set in the loginUser function
@@ -51,7 +62,7 @@ export default function LoginPage() {
           router.push("/dashboard");
         } else {
           // For non-admin users, redirect to a different page
-          router.push("/profile");
+          router.push("/");
         }
       } else {
         setError("Login failed. Please check your credentials.");
@@ -92,6 +103,7 @@ export default function LoginPage() {
             onChange={handleChange}
             required
             className="w-full"
+            placeholder="Enter your email"
           />
           
           <Input
@@ -102,6 +114,7 @@ export default function LoginPage() {
             onChange={handleChange}
             required
             className="w-full"
+            placeholder="Enter your password"
           />
           
           <Button
