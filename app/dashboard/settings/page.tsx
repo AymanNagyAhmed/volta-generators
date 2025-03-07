@@ -32,7 +32,12 @@ export default function SettingsPage() {
       try {
         const response = await getAllSiteSections();
         if ('data' in response) {
-          setSections(response.data);
+          // Filter out the background section from the UI display
+          // but keep it in the API for background image functionality
+          const filteredSections = response.data.filter(
+            section => section.title !== "background"
+          );
+          setSections(filteredSections);
         } else {
           setError(response.message);
         }
