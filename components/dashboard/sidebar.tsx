@@ -5,19 +5,13 @@ import {
   Home,
   Settings,
   Users,
-  BarChart,
-  FileText,
-  HelpCircle 
 } from "lucide-react";
 
 export function Sidebar() {
   const menuItems = [
     { icon: Home, label: "Overview", href: "/dashboard" },
     { icon: Settings, label: "Settings", href: "/dashboard/settings" },
-    { icon: Users, label: "Users", href: "/dashboard/users" },
-    { icon: BarChart, label: "Analytics", href: "/dashboard/analytics" },
-    { icon: FileText, label: "Reports", href: "/dashboard/reports" },
-    { icon: HelpCircle, label: "Help", href: "/dashboard/help" },
+    { icon: Users, label: "Users", href: "/dashboard/users",},
   ];
 
   return (

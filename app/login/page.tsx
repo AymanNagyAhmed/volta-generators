@@ -2,19 +2,66 @@
 
 import { Button } from "@nextui-org/react";
 import { Input } from "@nextui-org/react";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import NextLink from 'next/link';
+import { loginUser } from "@/lib/services/auth.service";
+import { LoginFormData } from "@/lib/types/auth.types";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const searchParams = useSearchParams();
+  const [formData, setFormData] = useState<LoginFormData>({
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  useEffect(() => {
+    // Check if user was redirected from registration
+    const registered = searchParams.get('registered');
+    if (registered === 'true') {
+      setSuccessMessage("You are registered successfully! Please login.");
+    }
+  }, [searchParams]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically handle authentication
-    // For now, we'll just redirect to dashboard
-    router.push("/dashboard");
+    setError(null);
+    
+    try {
+      setIsLoading(true);
+      const response = await loginUser(formData);
+      
+      if (response.success) {
+        // Login successful - cookies are set in the loginUser function
+        // Check user role and redirect accordingly
+        const userData = response.data.user;
+        
+        if (userData && userData.role === 'admin') {
+          router.push("/dashboard");
+        } else {
+          // For non-admin users, redirect to a different page
+          router.push("/profile");
+        }
+      } else {
+        setError("Login failed. Please check your credentials.");
+      }
+    } catch (error: any) {
+      console.error("Login error:", error);
+      setError(error.message || "Login failed. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -24,12 +71,25 @@ export default function LoginPage() {
           Login
         </h1>
         
+        {successMessage && (
+          <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded">
+            {successMessage}
+          </div>
+        )}
+        
+        {error && (
+          <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+            {error}
+          </div>
+        )}
+        
         <form onSubmit={handleLogin} className="space-y-6">
           <Input
             type="email"
             label="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
             required
             className="w-full"
           />
@@ -37,8 +97,9 @@ export default function LoginPage() {
           <Input
             type="password"
             label="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
             required
             className="w-full"
           />
@@ -46,10 +107,18 @@ export default function LoginPage() {
           <Button
             type="submit"
             color="primary"
-            className="w-full"
+            className="w-full bg-gray-800 hover:bg-gray-700 text-white"
+            isLoading={isLoading}
+            isDisabled={isLoading}
           >
             Sign In
           </Button>
+
+          <div className="text-center mt-4">
+            <NextLink href="/register" className="text-sm text-gray-600 dark:text-gray-300 hover:underline">
+              Don't have an account? Register
+            </NextLink>
+          </div>
         </form>
       </div>
     </div>

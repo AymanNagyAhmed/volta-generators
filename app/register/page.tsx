@@ -5,14 +5,18 @@ import { Input } from "@nextui-org/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { registerUser } from "@/lib/services/auth.service";
+import { RegisterFormData } from "@/lib/types/auth.types";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<RegisterFormData>({
     email: "",
     password: "",
     confirmPassword: "",
   });
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -21,11 +25,32 @@ export default function RegisterPage() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically handle registration
-    // For now, we'll just redirect to login
-    router.push("/login");
+    setError(null);
+    
+    // Basic validation
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+    
+    try {
+      setIsLoading(true);
+      const response = await registerUser(formData);
+      
+      if (response.success) {
+        // Redirect to login page with success parameter
+        router.push("/login?registered=true");
+      } else {
+        setError("Registration failed. Please try again.");
+      }
+    } catch (error: any) {
+      console.error("Registration error:", error);
+      setError(error.message || "Registration failed. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -34,6 +59,12 @@ export default function RegisterPage() {
         <h1 className="text-2xl font-bold text-center mb-6 text-gray-900 dark:text-white">
           Create Account
         </h1>
+        
+        {error && (
+          <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+            {error}
+          </div>
+        )}
         
         <form onSubmit={handleSubmit} className="space-y-4">
           <Input
@@ -69,7 +100,9 @@ export default function RegisterPage() {
           <Button
             type="submit"
             color="primary"
-            className="w-full mt-6"
+            className="w-full mt-6 bg-gray-800 hover:bg-gray-700 text-white"
+            isLoading={isLoading}
+            isDisabled={isLoading}
           >
             Register
           </Button>

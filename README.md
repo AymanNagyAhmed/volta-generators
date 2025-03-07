@@ -14,6 +14,18 @@ This is a template for creating applications using Next.js 14 (app directory) an
 - [Framer Motion](https://www.framer.com/motion/)
 - [next-themes](https://github.com/pacocoursey/next-themes)
 
+## Features
+
+### Authentication Middleware
+
+This project implements Next.js middleware for authentication and authorization:
+
+- **Route Protection**: Secures routes at the middleware level
+- **Role-Based Access**: Supports different access levels (user/admin)
+- **Automatic Redirects**: Redirects users based on authentication status
+
+For detailed documentation, see [Authentication Middleware](./docs/authentication.md).
+
 ## How to Use
 
 ### Use the template with create-next-app

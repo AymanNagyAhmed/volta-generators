@@ -5,11 +5,11 @@ export interface CreateUserPayload {
 
 export interface User {
   id: string;
-  role: 'user' | 'admin';
+  role: 'user' | 'admin' | 'manager';
   email: string;
   fullName: string | null;
   phoneNumber: string | null;
-  dateOfBirth: string | null;
+  dateOfBirth: string;
   password: string;
   createdAt: string;
   updatedAt: string;

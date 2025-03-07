@@ -15,7 +15,7 @@ import NextLink from "next/link";
 import clsx from "clsx";
 import { useState, useEffect } from "react";
 import Cookies from 'js-cookie';
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { siteConfig } from "@/config/site";
 import {
@@ -29,6 +29,7 @@ import { ProductsDropdown } from "@/components/navbar/products-dropdown";
 import { getAllSiteSections } from "@/lib/services/site-sections.service";
 import { SiteSection, SiteSetting } from "@/lib/types/site-sections.types";
 import { Button } from "@nextui-org/button";
+import { logoutUser } from "@/lib/services/auth.service";
 
 // Define interfaces for navbar data
 interface NavbarData {
@@ -43,6 +44,7 @@ export const Navbar = () => {
   const [showTopBar, setShowTopBar] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   
   // State for navbar data from API
   const [navbarData, setNavbarData] = useState<NavbarData>({
@@ -258,6 +260,14 @@ export const Navbar = () => {
     };
   });
 
+  // Handle logout
+  const handleLogout = () => {
+    logoutUser();
+    setIsAuthenticated(false);
+    router.push("/login");
+    setIsMenuOpen(false);
+  };
+
   return (
     <div className="w-full flex flex-col items-center fixed top-0 z-50">
       <div className="w-full lg:w-[95%]">
@@ -391,21 +401,40 @@ export const Navbar = () => {
           <NavbarContent className="hidden sm:flex basis-auto" justify="end">
             <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
             
-            {/* Sign In Button - Only show when not authenticated and not on login page */}
-            {!isAuthenticated && pathname !== "/login" && (
-              <NavbarItem className="hidden sm:flex">
-                <Button
-                  as={NextLink}
-                  href="/login"
-                  variant="shadow"
-                  color="default"
-                  size="sm"
-                  className="ml-2 bg-gray-800 hover:bg-gray-700 text-white"
-                >
-                  Sign In
-                </Button>
-              </NavbarItem>
-            )}
+            {/* Only show login/register buttons when NOT authenticated */}
+            {!isAuthenticated ? (
+              <>
+                {pathname !== "/login" && (
+                  <NavbarItem className="hidden sm:flex">
+                    <Button
+                      as={NextLink}
+                      href="/login"
+                      variant="shadow"
+                      color="default"
+                      size="sm"
+                      className="ml-2 bg-gray-800 hover:bg-gray-700 text-white"
+                    >
+                      Sign In
+                    </Button>
+                  </NavbarItem>
+                )}
+                
+                {pathname !== "/register" && (
+                  <NavbarItem className="hidden sm:flex">
+                    <Button
+                      as={NextLink}
+                      href="/register"
+                      variant="shadow"
+                      color="default"
+                      size="sm"
+                      className="ml-2 bg-gray-800 hover:bg-gray-700 text-white"
+                    >
+                      Register
+                    </Button>
+                  </NavbarItem>
+                )}
+              </>
+            ): (<></>)}
           </NavbarContent>
 
           {/* Mobile Menu Toggle Section */}
@@ -449,18 +478,58 @@ export const Navbar = () => {
                 );
               })}
 
-              {/* Sign In Button for Mobile - Only show when not authenticated and not on login page */}
-              {!isAuthenticated && pathname !== "/login" && (
-                <NavbarMenuItem>
-                  <Link
-                    className="w-full text-lg bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-md flex justify-center"
-                    href="/login"
-                    size="lg"
-                    onClick={handleLinkClick}
-                  >
-                    Sign In
-                  </Link>
-                </NavbarMenuItem>
+              {/* Authentication buttons for mobile */}
+              {!isAuthenticated ? (
+                <>
+                  {/* Sign In Button for Mobile - Only show when not on login page */}
+                  {pathname !== "/login" && (
+                    <NavbarMenuItem>
+                      <Link
+                        className="w-full text-lg bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-md flex justify-center"
+                        href="/login"
+                        size="lg"
+                        onClick={handleLinkClick}
+                      >
+                        Sign In
+                      </Link>
+                    </NavbarMenuItem>
+                  )}
+                  
+                  {/* Register Button for Mobile - Only show when not on register page */}
+                  {pathname !== "/register" && (
+                    <NavbarMenuItem>
+                      <Link
+                        className="w-full text-lg bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-md flex justify-center"
+                        href="/register"
+                        size="lg"
+                        onClick={handleLinkClick}
+                      >
+                        Register
+                      </Link>
+                    </NavbarMenuItem>
+                  )}
+                </>
+              ) : (
+                <>
+                  <NavbarMenuItem>
+                    <Link
+                      className="w-full text-lg bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-md flex justify-center"
+                      href="/profile"
+                      size="lg"
+                      onClick={handleLinkClick}
+                    >
+                      My Profile
+                    </Link>
+                  </NavbarMenuItem>
+                  <NavbarMenuItem>
+                    <button
+                      className="w-full text-lg bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md flex justify-center"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  </NavbarMenuItem>
+                </>
               )}
 
               {/* Divider */}

@@ -3,6 +3,12 @@ export interface LoginFormData {
     password: string;
   }
   
+  export interface RegisterFormData {
+    email: string;
+    password: string;
+    confirmPassword: string;
+  }
+  
   export interface ApiSuccessResponse<T> {
     success: true;
     statusCode: number;
@@ -23,14 +29,26 @@ export interface LoginFormData {
   export interface LoginResponseData {
     access_token: string;
     user: {
-      id: number;
+      _id: string;
       email: string;
-      fullName: string;
-      dateOfBirth: string;
-      preferredLocation: Record<string, any>;
-      resumeSummary: string;
-      programmingSkills: any[];
+      isEmailVerified: boolean;
+      role: string;
+      isActive: boolean;
+      createdAt: string;
+      updatedAt: string;
     };
   }
-  
+
+  export interface RegisterResponseData {
+    id: string;
+    role: string;
+    email: string;
+    fullName: string;
+    phoneNumber: string;
+    dateOfBirth: string;
+    password: string;
+  }
+
   export type LoginResponse = ApiSuccessResponse<LoginResponseData>; 
+
+  export type RegisterResponse = ApiSuccessResponse<RegisterResponseData>;

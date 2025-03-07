@@ -1,4 +1,4 @@
-import { type LoginFormData, type LoginResponse } from "@/lib/types/auth.types"
+import { RegisterFormData, LoginFormData, type LoginResponse, RegisterResponse } from "@/lib/types/auth.types"
 import Cookies from 'js-cookie'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000"
@@ -62,3 +62,55 @@ export const loginUser = async (credentials: LoginFormData): Promise<LoginRespon
     )
   }
 } 
+
+export const registerUser = async (credentials: RegisterFormData): Promise<RegisterResponse> => {
+  try {
+    const response = await fetch(`${API_URL}/api/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    });
+
+    return response.json();
+  } catch (error) {
+    console.error('Error in registerUser:', error)
+    if (error) {
+      throw error
+    }
+    throw new AuthError('Network error', 500, '/api/auth/register')
+  }
+}
+
+// Get user data from cookies
+export const getUserFromCookies = () => {
+  const userDataCookie = Cookies.get('user_data');
+  if (!userDataCookie) return null;
+  
+  try {
+    return JSON.parse(userDataCookie);
+  } catch (error) {
+    console.error('Error parsing user data from cookies:', error);
+    return null;
+  }
+}
+
+// Check if user is authenticated
+export const isAuthenticated = () => {
+  const token = Cookies.get('access_token');
+  const userData = getUserFromCookies();
+  return !!token && !!userData;
+}
+
+// Check if user has admin role
+export const isAdmin = () => {
+  const userData = getUserFromCookies();
+  return userData && userData.role === 'admin';
+}
+
+// Logout user by removing cookies
+export const logoutUser = () => {
+  Cookies.remove('access_token');
+  Cookies.remove('user_data');
+}

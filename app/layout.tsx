@@ -1,11 +1,8 @@
 import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
-import { Navbar } from "@/components/navbar/navbar";
 import { Providers } from "./providers";
-
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
-import Footer from "@/components/footer";
 import { cn } from "@/lib/utils/utils";
 
 export const metadata: Metadata = {
